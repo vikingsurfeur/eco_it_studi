@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - ECO IT{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="login-form bg-light mt-4 p-4">
+				<form method="post" class="row g-3">
+					<h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+
+					<div class="col-12">
+						<label for="inputEmail">Email</label>
+						<input type="email" name="email" id="inputEmail" class="form-control" value="{{ last_username }}" required autofocus>
+					</div>
+					<div class="col-12">
+						<label for="inputPassword">Mot de passe</label>
+						<input type="password" name="password" id="inputPassword" class="form-control" required>
+					</div>
+
+                    <div class="form-check mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me" class="form-check-input">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+                
+					<div class="col-12">
+						<button class="btn btn-lg btn-primary float-end" type="submit">
+							Se connecter
+						</button>
+					</div>
+
+					{% if error %}
+						<div class="alert alert-danger" role="alert">
+							{{ error.messageKey|trans(error.messageData, 'security') }}
+						</div>
+					{% endif %}
+
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

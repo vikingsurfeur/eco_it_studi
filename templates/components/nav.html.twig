@@ -1,0 +1,35 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">ECO - IT LOGO</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
+				</li>
+				<!-- TODO: Create right path for Dashboard Roles -->
+				<li>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a class="nav-link" href="{{ path('app_admin') }}">Administration</a>
+					{% elseif is_granted('ROLE_INSTRUCTOR') %}
+						<a class="nav-link" href="{{ path('app_instructor') }}">Mes cours</a>
+					{% elseif is_granted('ROLE_USER') %}
+						<a class="nav-link" href="{{ path('app_user') }}">Mon compte</a>
+					{% endif %}
+				</li>
+				<li class="nav-item">
+					{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+					<div class="d-flex flex-column flex-lg-row">
+						<p class="nav-link mb-0">Connecté en tant que {{ app.user.firstname }}</p>
+						<a class="nav-link" href="{{ path('app_logout') }}">Déconnnexion</a>
+					</div>
+					{% else %}
+						<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
