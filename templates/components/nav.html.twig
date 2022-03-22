@@ -9,6 +9,12 @@
 				<li class="nav-item">
 					<a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
 				</li>
+				<li>
+					<a class="nav-link" href="{{ path('app_register_instructor') }}">Inscription formateur</a>
+				</li>
+				<li>
+					<a class="nav-link" href="{{ path('app_register_user') }}">Inscription apprenant</a>
+				</li>
 				<!-- TODO: Create right path for Dashboard Roles -->
 				<li>
 					{% if is_granted('ROLE_ADMIN') %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Formateur{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row">
+			<div class="bg-light mt-4 p-4">
+				<h1>Inscription Formateur</h1>
+				{{ form_start(registrationFormInstructor) }}
+				{{ form_row(registrationFormInstructor.email) }}
+				{{ form_row(registrationFormInstructor.plainPassword, {
+                        label: 'Mot de passe'
+                    }) }}
+				{{ form_row(registrationFormInstructor.agreeTerms) }}
+				<button type="submit" class="btn btn-primary">Inscription</button>
+				{{ form_end(registrationFormInstructor) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
