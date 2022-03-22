@@ -5,6 +5,7 @@
         "@symfony/webpack-encore": "^1.7.0",
         "autoprefixer": "^10.4.4",
         "core-js": "^3.0.0",
+        "file-loader": "^6.0.0",
         "postcss-loader": "^6.2.1",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.49.9",

@@ -5,15 +5,15 @@
 {% block body %}
 	<div class="container mt-5">
 		<div class="row">
-			<div class="bg-light mt-4 p-4">
-				<h1>Inscription Apprenant</h1>
+			<div class="bg-light mt-5 p-5 shadow rounded">
+				<h1 class="h3 mb-3 font-weight-normal">Inscription Apprenant</h1>
 				{{ form_start(registrationFormUser) }}
 				{{ form_row(registrationFormUser.email) }}
 				{{ form_row(registrationFormUser.plainPassword, {
                         label: 'Mot de passe'
                     }) }}
 				{{ form_row(registrationFormUser.agreeTerms) }}
-				<button type="submit" class="btn btn-primary">Inscription</button>
+				<button type="submit" class="btn btn-lg btn-primary text-white float-end">Inscription</button>
 				{{ form_end(registrationFormUser) }}
 			</div>
 		</div>

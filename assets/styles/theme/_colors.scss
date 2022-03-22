@@ -1,0 +1,19 @@
+// Override Bootstrap variables colors
+
+// Main Colors
+$primary: #2a9d8fff;
+$secondary: #2a9d8fff;
+$warning: #e9c46aff;
+$danger: #f4a261ff;
+$alert: #e76f51ff;
+
+// Gradient Colors
+$gradient-top: linear-gradient(0deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-right: linear-gradient(90deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-bottom: linear-gradient(180deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-left: linear-gradient(270deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-top-right: linear-gradient(45deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-bottom-right: linear-gradient(135deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-top-left: linear-gradient(225deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-bottom-left: linear-gradient(315deg, #264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);
+$gradient-radial: radial-gradient(#264653ff, #2a9d8fff, #e9c46aff, #f4a261ff, #e76f51ff);

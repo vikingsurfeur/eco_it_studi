@@ -1,0 +1,30 @@
+// Override Bootstrap Typography
+
+// Import Typography from Google
+// Monserrat
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+// Cairo
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap");
+// Hind Madurai
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Hind+Madurai:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap");
+
+// Define new Layout
+h1,
+h2,
+h3 {
+    font-family: "Montserrat", sans-serif;
+}
+
+h4,
+h5,
+h6 {
+    font-family: "Cairo", sans-serif;
+}
+
+p,
+a,
+span,
+label,
+button {
+    font-family: "Hind Madurai", sans-serif !important;
+}

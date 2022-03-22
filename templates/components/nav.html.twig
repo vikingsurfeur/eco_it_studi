@@ -1,6 +1,8 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#">ECO - IT LOGO</a>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-danger shadow-sm">
+	<div class="container-fluid mx-5">
+		<a class="navbar-brand" href={{ path('app_home') }}>
+			<img src="{{ asset('build/images/eco_it_logo.png') }}" width="80px" alt="logo eco-it"/>
+		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -9,12 +11,14 @@
 				<li class="nav-item">
 					<a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
 				</li>
-				<li>
-					<a class="nav-link" href="{{ path('app_register_instructor') }}">Inscription formateur</a>
-				</li>
-				<li>
-					<a class="nav-link" href="{{ path('app_register_user') }}">Inscription apprenant</a>
-				</li>
+				{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+					<li>
+						<a class="nav-link" href="{{ path('app_register_instructor') }}">Inscription formateur</a>
+					</li>
+					<li>
+						<a class="nav-link" href="{{ path('app_register_user') }}">Inscription apprenant</a>
+					</li>
+				{% endif %}
 				<!-- TODO: Create right path for Dashboard Roles -->
 				<li>
 					{% if is_granted('ROLE_ADMIN') %}
@@ -27,10 +31,11 @@
 				</li>
 				<li class="nav-item">
 					{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-					<div class="d-flex flex-column flex-lg-row">
-						<p class="nav-link mb-0">Connecté en tant que {{ app.user.firstname }}</p>
-						<a class="nav-link" href="{{ path('app_logout') }}">Déconnnexion</a>
-					</div>
+						<div class="d-flex flex-column flex-lg-row">
+							<p class="nav-link mb-0">Connecté en tant que
+								{{ app.user.firstname }}</p>
+							<a class="nav-link" href="{{ path('app_logout') }}">Déconnnexion</a>
+						</div>
 					{% else %}
 						<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
 					{% endif %}

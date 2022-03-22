@@ -1,4 +1,10 @@
 // Override Bootstrap Styles
 
+// Layout
+@import "../styles/layout/body";
+
+// Themes
+@import "../styles/theme/colors", "../styles/theme/typography";
+
 // Import Boostrap Styles
 @import "~bootstrap/scss/bootstrap";
