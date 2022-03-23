@@ -51,7 +51,7 @@ You can load of bunch of weird fixtures with :
 
 ## I Want to be a User
 
-Here some user login :
+After fixtures loading, you can log in with those ultra secure passwords :
 
 A simple and dummy learner :  
 ```
@@ -61,8 +61,8 @@ password : tada
 
 A great but violent instructor :  
 ```
-email: userInstructor@example.com
-password : 123456
+email: instructor@example.com
+password : tada
 ```
 
 A super Admin :  
