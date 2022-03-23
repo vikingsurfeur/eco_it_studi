@@ -39,3 +39,34 @@ Now, you should to see your .env.local.php on the root directory project.
 Configure your database at the DATABASE_URL key.
 
 ## Migrations to be Free...
+
+Now that your environment variables are set, you will be able to create your database with :  
+`symfony console doctrine:database:create`
+
+In a second step, you will send all this beautiful data to your database using the command :  
+`symfony console doctrine:migrations:migrate`
+
+You can load of bunch of weird fixtures with :  
+`symfony console doctrine:fixtures:load`
+
+## I Want to be a User
+
+Here some user login :
+
+A simple and dummy learner :  
+```
+email : user@example.com
+password : tada
+```
+
+A great but violent instructor :  
+```
+email: userInstructor@example.com
+password : 123456
+```
+
+A super Admin :  
+```
+email : admin@example.com
+password : tada
+```
