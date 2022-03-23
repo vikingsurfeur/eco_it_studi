@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription Apprenant{% endblock %}
+{% block title %}Inscription Apprenant
+{% endblock %}
 
 {% block body %}
 	<div class="container mt-5">
@@ -8,7 +9,11 @@
 			<div class="bg-light mt-5 p-5 shadow rounded">
 				<h1 class="h3 mb-3 font-weight-normal">Inscription Apprenant</h1>
 				{{ form_start(registrationFormUser) }}
-				{{ form_row(registrationFormUser.email) }}
+				{{ form_row(registrationFormUser.email, {
+					'attr': {
+						'placeholder': 'user@example.com',
+					}})}}
+				{{ form_row(registrationFormUser.pseudo) }}
 				{{ form_row(registrationFormUser.plainPassword, {
                         label: 'Mot de passe'
                     }) }}

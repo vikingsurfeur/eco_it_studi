@@ -1,0 +1,5 @@
+// Form Styles
+label.required::after {
+    content: " *";
+    color: red;
+}
