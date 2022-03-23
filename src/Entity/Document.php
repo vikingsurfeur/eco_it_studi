@@ -19,6 +19,10 @@ class Document
     #[ORM\Column(type: 'string', length: 255)]
     private $file;
 
+    #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'documents_lesson')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $lesson;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class Document
     public function setFile(string $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getLesson(): ?Lesson
+    {
+        return $this->lesson;
+    }
+
+    public function setLesson(?Lesson $lesson): self
+    {
+        $this->lesson = $lesson;
 
         return $this;
     }

@@ -24,19 +24,19 @@ class Lesson
     #[ORM\Column(type: 'text')]
     private $explanation;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Image::class)]
-    private $images;
-
     #[ORM\ManyToOne(targetEntity: Section::class, inversedBy: 'lessons')]
     private $section;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class)]
-    private $documents;
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Image::class, orphanRemoval: true)]
+    private $imagesLesson;
+
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class, orphanRemoval: true)]
+    private $documentsLesson;
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
-        $this->documents = new ArrayCollection();
+        $this->imagesLesson = new ArrayCollection();
+        $this->documentsLesson = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,28 +88,6 @@ class Lesson
         return $this->images;
     }
 
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setLesson($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getLesson() === $this) {
-                $image->setLesson(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSection(): ?Section
     {
         return $this->section;
@@ -123,29 +101,59 @@ class Lesson
     }
 
     /**
-     * @return Collection<int, Document>
+     * @return Collection<int, Image>
      */
-    public function getDocuments(): Collection
+    public function getImagesLesson(): Collection
     {
-        return $this->documents;
+        return $this->imagesLesson;
     }
 
-    public function addDocument(Document $document): self
+    public function addImagesLesson(Image $imagesLesson): self
     {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setLesson($this);
+        if (!$this->imagesLesson->contains($imagesLesson)) {
+            $this->imagesLesson[] = $imagesLesson;
+            $imagesLesson->setLesson($this);
         }
 
         return $this;
     }
 
-    public function removeDocument(Document $document): self
+    public function removeImagesLesson(Image $imagesLesson): self
     {
-        if ($this->documents->removeElement($document)) {
+        if ($this->imagesLesson->removeElement($imagesLesson)) {
             // set the owning side to null (unless already changed)
-            if ($document->getLesson() === $this) {
-                $document->setLesson(null);
+            if ($imagesLesson->getLesson() === $this) {
+                $imagesLesson->setLesson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocumentsLesson(): Collection
+    {
+        return $this->documentsLesson;
+    }
+
+    public function addDocumentsLesson(Document $documentsLesson): self
+    {
+        if (!$this->documentsLesson->contains($documentsLesson)) {
+            $this->documentsLesson[] = $documentsLesson;
+            $documentsLesson->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumentsLesson(Document $documentsLesson): self
+    {
+        if ($this->documentsLesson->removeElement($documentsLesson)) {
+            // set the owning side to null (unless already changed)
+            if ($documentsLesson->getLesson() === $this) {
+                $documentsLesson->setLesson(null);
             }
         }
 
