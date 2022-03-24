@@ -35,6 +35,9 @@ class RegistrationInstructorController extends AbstractController
             // Give the instructor role to this user
             $user->setRoles(['ROLE_INSTRUCTOR']);
 
+            // Set the instructor's accepted to false
+            $user->setIsAccepted(false);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
