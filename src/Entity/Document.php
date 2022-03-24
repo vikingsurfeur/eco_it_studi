@@ -19,7 +19,7 @@ class Document
     #[ORM\Column(type: 'string', length: 255)]
     private $file;
 
-    #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'documents_lesson')]
+    #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'documentsLesson')]
     #[ORM\JoinColumn(nullable: false)]
     private $lesson;
 

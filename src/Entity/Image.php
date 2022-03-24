@@ -19,7 +19,7 @@ class Image
     #[ORM\Column(type: 'string', length: 255)]
     private $file;
 
-    #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'images_lesson')]
+    #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'imagesLesson')]
     #[ORM\JoinColumn(nullable: false)]
     private $lesson;
 
