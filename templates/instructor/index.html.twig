@@ -2,15 +2,31 @@
 
 {% block content %}
 
-	<div class="jumbotron">
-		<h1 class="display-4">Formateur</h1>
-		<p class="lead">
-			Bienvenue dans l'administration formateur du site ECO-IT
-		</p>
-		<hr class="my-4">
-		<p>
-			Vous pouvez gérer vos différents cours en cliquant sur les boutons ci-dessous.
-		</p>
-	</div>
+	{% if app.user.isAccepted %}
+		<div class="jumbotron">
+			<h1 class="display-4">Formateur</h1>
+			<p class="lead">
+				Bienvenue dans l'administration formateur du site ECO-IT
+			</p>
+			<hr class="my-4">
+			<p>
+				Vous pouvez gérer vos différents cours en cliquant sur les boutons ci-dessous.
+			</p>
+		</div>
+	{% else %}
+		<div class="jumbotron">
+			<h1 class="display-4">Formateur</h1>
+			<p class="lead text-danger">
+				Un administrateur doit vérifier votre inscription avant que vous puissiez accéder à l'administration de vos cours.
+			</p>
+			<hr class="my-4">
+			<p>
+				Merci de patienter.
+			</p>
+			<button class="btn btn-primary btn-lg">
+				<a class="text-light" href="{{ path('app_home') }}">Retour à l'accueil</a>
+			</button>
+		</div>
+	{% endif %}
 
 {% endblock %}
