@@ -34,5 +34,7 @@ class InstructorCreateCourseSubscriber implements EventSubscriberInterface
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setUserInstructor($this->security->getUser());
         }
+
+        return;
     }
 }
