@@ -3,7 +3,6 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Image;
-use DateTimeImmutable;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Security;
@@ -29,7 +28,7 @@ class ImageCreateSubscriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
 
         if ($entity instanceof Image) {
-
+            $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUser($this->security->getUser());
         }
 

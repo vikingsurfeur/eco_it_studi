@@ -16,21 +16,24 @@ class Image
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $file;
 
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'file')]
     private ?File $imageFile = null;
 
     #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'imagesLesson')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $lesson;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     private $createdAt;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'images')]
     private $user;
@@ -57,21 +60,26 @@ class Image
         return $this->file;
     }
 
-    public function setFile(string $file): self
+    public function setFile(?string $file): self
     {
         $this->file = $file;
 
         return $this;
     }
 
-    public function setImageFile(?File $file = null): void
-    {
-        $this->imageFile = $file;
+    /**
+    * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+    */
+   public function setImageFile(?File $imageFile = null): void
+   {
+       $this->imageFile = $imageFile;
 
-        if ($file) {
-            $this->createdAt = new \DateTime('now');
-        }
-    }
+       if (null !== $imageFile) {
+           // It is required that at least one field changes if you are using doctrine
+           // otherwise the event listeners won't be called and the file is lost
+           $this->updatedAt = new \DateTimeImmutable();
+       }
+   }
 
     public function getImageFile(): ?File
     {
@@ -90,16 +98,28 @@ class Image
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function setUpdatedAt(?\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
     }
 
     public function getUser(): ?User
@@ -112,5 +132,10 @@ class Image
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

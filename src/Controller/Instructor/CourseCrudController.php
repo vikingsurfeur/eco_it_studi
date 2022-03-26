@@ -8,6 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -23,6 +25,7 @@ class CourseCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+            DateField::new('createdAt', 'Créé le')->hideOnForm(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
             TextEditorField::new('description'),
             AssociationField::new('image')->hideOnIndex(),

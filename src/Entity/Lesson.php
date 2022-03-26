@@ -33,10 +33,10 @@ class Lesson
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class, orphanRemoval: true)]
     private $documentsLesson;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $updatedAt;
 
     public function __construct()
