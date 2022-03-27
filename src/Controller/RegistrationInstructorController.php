@@ -46,7 +46,7 @@ class RegistrationInstructorController extends AbstractController
                 $request,
             );
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_instructor');
         }
 
         return $this->render('registration/register.instructor.html.twig', [

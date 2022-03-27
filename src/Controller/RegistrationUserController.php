@@ -12,7 +12,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationUserController extends AbstractController
 {
@@ -41,7 +40,7 @@ class RegistrationUserController extends AbstractController
                 $request,
             );
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_user');
         }
 
         return $this->render('registration/register.user.html.twig', [

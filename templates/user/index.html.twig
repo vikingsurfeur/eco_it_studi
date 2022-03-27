@@ -3,14 +3,53 @@
 {% block content %}
 
 	<div class="jumbotron">
-		<h1 class="display-4">Apprenant</h1>
-		<p class="lead">
-			Bienvenue dans l'administration de votre apprentissage du site ECO-IT
-		</p>
-		<hr class="my-4">
-		<p>
-			Vous pouvez gérer votre apprentissage en cliquant sur les boutons ci-dessous.
-		</p>
-	</div>
+			<h1 class="display-4">Espace Apprenant</h1>
+			<p class="lead">
+				Bienvenue dans votre espace apprenant {{ app.user.firstname }}! 
+				Le site ECO-IT votre plateforme e-learning eco-responsable vous souhaite la bienvenue!
+			</p>
+			<hr class="my-4">
+			<p>
+				Vous pouvez gérer vos différents cours en cliquant sur les boutons ci-contre.
+			</p>
+			<section class="container">
+				<h2>
+					<span class="badge badge-primary me-2">DOC</span>Comment créez votre parcours ?</h2>
+				<div class="row">
+					<div class="col">
+						<ol class="list-group list-group-flush">
+							<li class="list-group-item">
+								Dans un premier temps, naviguez sur le site et inscrivez-vous à un cours.
+							</li>
+							<li class="list-group-item">
+								Accéder aux sections de ce cours, chaque section contient plusieurs lessons.
+								Commencez votre l'apprentissage de votre première leçon!
+							</li>
+							<li class="list-group-item">
+								Une fois vos lessons finies, cochez la case "terminée", vous pouvez suivre votre avancement à l'aide du menu ci-contre.
+							</li>
+							<li class="list-group-item">
+								Une fois le cours complètement terminé, un quiz de révision sera débloqué.
+							</li>
+						</ol>
+					</div>
+				</div>
+			</section>
+			<section class="container my-5">
+				<h3>
+					<span class="badge badge-primary me-2">MON COMPTE</span>
+					Modifier mes informations
+				</h3>
+				<div class="row">
+					<div class="col">
+						<ol class="list-group list-group-flush">
+							<li class="list-group-item">
+								Vous pouvez modifier vos informations personnelles en cliquant sur le bouton "Mon compte".
+							</li>
+						</ol>
+					</div>
+				</div>
+			</section>
+		</div>
 
 {% endblock %}

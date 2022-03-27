@@ -21,12 +21,26 @@ class DashboardUserController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Eco IT - Mon Parcours');
+            ->setTitle('ECO IT - ESPACE APPRENANT');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        return [
+            MenuItem::linkToDashboard('Accueil', 'fa fa-home'),
+
+            MenuItem::section('Mes Cours'),
+            // MenuItem::linkToCrud('Mes Cours', 'fas fa-book', Course::class),
+                // ->setController(LearnerCourseCrudController::class)
+            // MenuItem::linkToCrud('Mes Sections', 'fas fa-list', Section::class),
+                // ->setController(LearnerSectionCrudController::class)
+            // MenuItem::linkToCrud('Mes Lessons', 'fas fa-pen', Lesson::class),
+                // ->setController(LearnerLessonCrudController::class)
+
+            MenuItem::section('Mes informations'),
+            MenuItem::linkToCrud('Mon Profil', 'fas fa-user', User::class)
+                ->setController(LearnerCrudController::class)
+            ,
+        ];
     }
 }

@@ -4,9 +4,10 @@
 
 	{% if app.user.isAccepted %}
 		<div class="jumbotron">
-			<h1 class="display-4">Formateur</h1>
+			<h1 class="display-4">Espace Formateur</h1>
 			<p class="lead">
-				Bienvenue dans l'administration formateur du site ECO-IT
+				Heureux de vous revoir Mr {{ app.user.firstName }} {{ app.user.lastName }} !
+				Bienvenue dans l'administration formateur du site ECO-IT.
 			</p>
 			<hr class="my-4">
 			<p>
