@@ -24,15 +24,15 @@ class Course
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     private $image;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Section::class, orphanRemoval: true)]
     private $sections;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'courses')]
-    private $userInstructor;
+    private $user;
 
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
@@ -128,14 +128,14 @@ class Course
         return $this;
     }
 
-    public function getUserInstructor(): ?User
+    public function getUser(): ?User
     {
-        return $this->userInstructor;
+        return $this->user;
     }
 
-    public function setUserInstructor(?User $userInstructor): self
+    public function setUser(?User $user): self
     {
-        $this->userInstructor = $userInstructor;
+        $this->user = $user;
 
         return $this;
     }

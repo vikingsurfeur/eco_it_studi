@@ -44,24 +44,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $description;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
-    private $isAccepted;
+    public $isAccepted;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $pseudo;
 
-    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     private $profilePhoto;
 
-    #[ORM\OneToMany(mappedBy: 'userInstructor', targetEntity: Course::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Course::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private $courses;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Section::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private $sections;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private $lessons;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private $images;
+
 
     public function __construct()
     {
         $this->courses = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->sections = new ArrayCollection();
+        $this->lessons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,6 +219,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getIsAccepted(): ?bool
     {
         return $this->isAccepted;
@@ -257,7 +270,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->courses->contains($course)) {
             $this->courses[] = $course;
-            $course->setUserInstructor($this);
+            $course->setUser($this);
         }
 
         return $this;
@@ -267,8 +280,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->courses->removeElement($course)) {
             // set the owning side to null (unless already changed)
-            if ($course->getUserInstructor() === $this) {
-                $course->setUserInstructor(null);
+            if ($course->getUser() === $this) {
+                $course->setUser(null);
             }
         }
 
@@ -299,6 +312,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($image->getUser() === $this) {
                 $image->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Section>
+     */
+    public function getSections(): Collection
+    {
+        return $this->sections;
+    }
+
+    public function addSection(Section $section): self
+    {
+        if (!$this->sections->contains($section)) {
+            $this->sections[] = $section;
+            $section->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(Section $section): self
+    {
+        if ($this->sections->removeElement($section)) {
+            // set the owning side to null (unless already changed)
+            if ($section->getUser() === $this) {
+                $section->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lesson>
+     */
+    public function getLessons(): Collection
+    {
+        return $this->lessons;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lessons->contains($lesson)) {
+            $this->lessons[] = $lesson;
+            $lesson->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        if ($this->lessons->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getUser() === $this) {
+                $lesson->setUser(null);
             }
         }
 

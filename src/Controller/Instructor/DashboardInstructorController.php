@@ -4,7 +4,9 @@ namespace App\Controller\Instructor;
 
 use App\Entity\Course;
 use App\Entity\Image;
+use App\Entity\Lesson;
 use App\Entity\Section;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -24,14 +26,32 @@ class DashboardInstructorController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Eco It - Mes Cours');
+            ->setTitle('ECO IT - ADMINISTRATION FORMATEUR');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
-        yield MenuItem::linkToCrud('Mes Images', 'fas fa-image', Image::class);
-        yield MenuItem::linkToCrud('Mes Cours', 'fas fa-book', Course::class);
-        yield MenuItem::linkToCrud('Mes Sections', 'fas fa-list', Section::class); 
+        if ($this->getUser()->isAccepted) {
+            return [
+                MenuItem::linkToDashboard('Accueil', 'fa fa-home'),
+
+                MenuItem::section('Gestion des images'),
+                MenuItem::linkToCrud('Mes Images', 'fas fa-image', Image::class),
+
+                MenuItem::section('Mes Cours'),
+                MenuItem::linkToCrud('Mes Cours', 'fas fa-book', Course::class),
+                MenuItem::linkToCrud('Mes Sections', 'fas fa-list', Section::class),
+                MenuItem::linkToCrud('Mes Lessons', 'fas fa-pen', Lesson::class),
+
+                MenuItem::section('Mes informations'),
+                MenuItem::linkToCrud('Mon Profil', 'fas fa-user', User::class)
+                    ->setController(InstructorCrudController::class)
+                ,
+            ];
+        } else {
+            return [
+                MenuItem::linkToDashboard('Accueil', 'fa fa-home'),
+            ];
+        }
     }
 }

@@ -4,11 +4,12 @@ namespace App\EventSubscriber;
 
 use App\Entity\Course;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class InstructorCreateCourseSubscriber implements EventSubscriberInterface
+class CourseCreateSubscriber implements EventSubscriberInterface
 {
     private $slugger;
     private $security;
@@ -23,6 +24,7 @@ class InstructorCreateCourseSubscriber implements EventSubscriberInterface
     {
         return [
             BeforeEntityPersistedEvent::class => 'setCourseSlugAndInstructor',
+            BeforeEntityUpdatedEvent::class => 'setCourseSlugAndInstructorUpdated',
         ];
     }
 
@@ -33,7 +35,19 @@ class InstructorCreateCourseSubscriber implements EventSubscriberInterface
         if ($entity instanceof Course) {
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setCreatedAt(new \DateTime('now'));
-            $entity->setUserInstructor($this->security->getUser());
+            $entity->setUser($this->security->getUser());
+        }
+
+        return;
+    }
+
+    public function setCourseSlugAndInstructorUpdated(BeforeEntityUpdatedEvent $event)
+    {
+        $entity = $event->getEntityInstance();
+
+        if ($entity instanceof Course) {
+            $entity->setSlug($this->slugger->slug($entity->getTitle()));
+            $entity->setUpdatedAt(new \DateTime('now'));
         }
 
         return;

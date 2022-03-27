@@ -2,14 +2,14 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\Section;
+use App\Entity\Lesson;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class SectionCreateSubscriber implements EventSubscriberInterface
+class LessonCreateSubscriber implements EventSubscriberInterface
 {
     private $slugger;
     private $security;
@@ -23,16 +23,16 @@ class SectionCreateSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            BeforeEntityPersistedEvent::class => 'setSectionSlugAndDate',
-            BeforeEntityUpdatedEvent::class => 'setSectionSlugAndDateUpdated',
+            BeforeEntityPersistedEvent::class => 'setLessonSlugAndDate',
+            BeforeEntityUpdatedEvent::class => 'setLessonSlugAndDateUpdated',
         ];
     }
 
-    public function setSectionSlugAndDate(BeforeEntityPersistedEvent $event)
+    public function setLessonSlugAndDate(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
-        if ($entity instanceof Section) {
+        if ($entity instanceof Lesson) {
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUser($this->security->getUser());
@@ -41,11 +41,11 @@ class SectionCreateSubscriber implements EventSubscriberInterface
         return;
     }
 
-    public function setSectionSlugAndDateUpdated(BeforeEntityUpdatedEvent $event)
+    public function setLessonSlugAndDateUpdated(BeforeEntityUpdatedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
-        if ($entity instanceof Section) {
+        if ($entity instanceof Lesson) {
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setUpdatedAt(new \DateTime('now'));
         }

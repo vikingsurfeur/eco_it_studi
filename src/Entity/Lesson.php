@@ -27,10 +27,10 @@ class Lesson
     #[ORM\ManyToOne(targetEntity: Section::class, inversedBy: 'lessons')]
     private $section;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Image::class, cascade: ['persist'])]
     private $imagesLesson;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class, cascade: ['persist'])]
     private $documentsLesson;
 
     #[ORM\Column(type: 'datetime')]
@@ -38,6 +38,12 @@ class Lesson
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $updatedAt;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'lessons')]
+    private $user;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     public function __construct()
     {
@@ -166,26 +172,50 @@ class Lesson
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(?\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

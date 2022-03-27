@@ -22,12 +22,18 @@ class DashboardAdminController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Eco IT - Administration');
+            ->setTitle('ECO IT - ADMINISTRATION');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+        return [
+            MenuItem::linkToDashboard('Accueil', 'fa fa-home'),
+
+            MenuItem::section('Gestion des utilisateurs'),
+            MenuItem::linkToCrud('Mes utilisateurs', 'fas fa-users', User::class)
+                ->setController(AdminCrudController::class)
+            ,
+        ];
     }
 }

@@ -2,26 +2,25 @@
 
 namespace App\Controller\Instructor;
 
-use App\Entity\Section;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class SectionCrudController extends AbstractCrudController
+class InstructorCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Section::class;
+        return User::class;
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
@@ -30,43 +29,45 @@ class SectionCrudController extends AbstractCrudController
         $queryBuilder = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
 
         // add a custom filter
-        $queryBuilder->andWhere('entity.user = :user');
+        $queryBuilder->andWhere('entity.id = :user');
         $queryBuilder->setParameter('user', $this->getUser());
 
         return $queryBuilder;
-    }
-    
-    public function configureActions(Actions $actions): Actions
-    {
-        return $actions
-            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-                return $action->setIcon('fas fa-plus-circle')->setLabel('Ajouter une section');
-            })
-            ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
-                return $action->setIcon('fas fa-trash-alt')->setLabel('Supprimer une section');
-            })
-            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-                return $action->setIcon('fas fa-edit')->setLabel('Modifier une section');
-            });
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
-            DateField::new('createdAt', 'Créé le')->hideOnForm(),
-            DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
-            SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
-            AssociationField::new('course'),
-            AssociationField::new('lessons'),
+            TextField::new('email'),
+            TextField::new('firstname', 'Prénom'),
+            TextField::new('lastname', 'Nom'),
+            AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnIndex(),
+            AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnForms(),
+            TextEditorField::new('description'),
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+                // Disable the "new" button
+                return $action->setCssClass('d-none');
+            })
+            ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+                // Disable the delete action
+                return $action->setCssClass('d-none');
+            })
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->setIcon('fas fa-edit')->setLabel('Modifier mon profil');
+            });
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('new', 'Ajouter une section')
-            ->setPageTitle('edit', 'Modifier une section')
-            ->setPageTitle('index', 'Mes sections');
+            ->setPageTitle('edit', 'Modifier mes informations')
+            ->setPageTitle('index', 'Mon profil');
     }
+
 }
