@@ -3,6 +3,7 @@
 namespace App\Controller\Instructor;
 
 use App\Entity\Course;
+use App\Form\ImagesFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -14,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -45,7 +47,8 @@ class CourseCrudController extends AbstractCrudController
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
             TextEditorField::new('description'),
-            AssociationField::new('image'),
+            TextField::new('image', 'Image')->setFormType(ImagesFormType::class),
+            ImageField::new('image')->setBasePath('/uploads/images/')->onlyOnIndex(),
         ];
     }
 

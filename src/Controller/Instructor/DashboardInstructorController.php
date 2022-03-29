@@ -31,12 +31,14 @@ class DashboardInstructorController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        if ($this->getUser()->isAccepted) {
+        $isAcceptedInstructor = $this->getUser()->getIsAccepted();
+
+        if ($isAcceptedInstructor) {
             return [
                 MenuItem::linkToDashboard('Accueil', 'fa fa-home'),
 
-                MenuItem::section('Gestion des images'),
-                MenuItem::linkToCrud('Mes Images', 'fas fa-image', Image::class),
+                // MenuItem::section('Gestion des images'),
+                // MenuItem::linkToCrud('Mes Images', 'fas fa-image', Image::class),
 
                 MenuItem::section('Mes Cours'),
                 MenuItem::linkToCrud('Mes Cours', 'fas fa-book', Course::class),

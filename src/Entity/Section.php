@@ -22,7 +22,7 @@ class Section
     private $slug;
 
     #[ORM\ManyToOne(targetEntity: Course::class, inversedBy: 'sections')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $course;
 
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: Lesson::class, orphanRemoval: true)]
@@ -35,6 +35,7 @@ class Section
     private $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sections')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $user;
 
     public function __construct()

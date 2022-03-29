@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $description;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
-    public $isAccepted;
+    private $isAccepted;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $pseudo;
@@ -53,16 +53,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: true)]
     private $profilePhoto;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Course::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Course::class, cascade: ['persist'], orphanRemoval: true)]
     private $courses;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Section::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Section::class, cascade: ['persist'], orphanRemoval: true)]
     private $sections;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, cascade: ['persist'], orphanRemoval: true)]
     private $lessons;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private $images;
 
 

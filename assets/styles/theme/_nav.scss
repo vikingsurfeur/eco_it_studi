@@ -1,0 +1,6 @@
+// Nav styles
+a {
+    &.active {
+        color: $secondary !important;
+    }
+}

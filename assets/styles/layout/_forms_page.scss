@@ -1,0 +1,17 @@
+// Forms page layout
+.form__container {
+    max-width: 80vw !important;
+    margin-top: 100px;
+
+    @include for-size(md) {
+        max-width: 50vw !important;
+    }
+
+    @include for-size(lg) {
+        max-width: 30vw !important;
+    }
+
+    @include for-size(xl) {
+        max-width: 20vw !important;
+    }
+}

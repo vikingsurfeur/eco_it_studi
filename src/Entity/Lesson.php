@@ -25,12 +25,13 @@ class Lesson
     private $explanation;
 
     #[ORM\ManyToOne(targetEntity: Section::class, inversedBy: 'lessons')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $section;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Image::class, cascade:['persist'], orphanRemoval: true)]
     private $imagesLesson;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: Document::class, cascade:['persist'], orphanRemoval: true)]
     private $documentsLesson;
 
     #[ORM\Column(type: 'datetime')]
@@ -40,6 +41,7 @@ class Lesson
     private $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'lessons')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $user;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -218,5 +220,10 @@ class Lesson
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

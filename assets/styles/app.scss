@@ -1,11 +1,16 @@
 // Override Bootstrap Styles
 
+// Mixins
+@import "../styles/mixins/media_queries_helper";
+
 // Layout
-@import "../styles/layout/body";
+@import "../styles/layout/body",
+        "../styles/layout/forms_page";
 
 // Themes
-@import "../styles/theme/forms",
-        "../styles/theme/colors",
+@import "../styles/theme/colors",
+        "../styles/theme/forms",
+        "../styles/theme/nav",
         "../styles/theme/typography";
 
 // Import Boostrap Styles

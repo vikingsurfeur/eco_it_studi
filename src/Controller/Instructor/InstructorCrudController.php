@@ -3,6 +3,7 @@
 namespace App\Controller\Instructor;
 
 use App\Entity\User;
+use Doctrine\ORM\Mapping\Builder\AssociationBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -13,8 +14,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class InstructorCrudController extends AbstractCrudController
 {
@@ -41,8 +44,10 @@ class InstructorCrudController extends AbstractCrudController
             TextField::new('email'),
             TextField::new('firstname', 'Prénom'),
             TextField::new('lastname', 'Nom'),
-            AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnIndex(),
-            AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnForms(),
+            ImageField::new('profilePhoto', 'Photo de profil')
+                ->setBasePath('/uploads/images/')
+                ->onlyOnIndex(),
+            TextField::new('image', 'Image')->setFormType(ImagesFormType::class),
             TextEditorField::new('description'),
         ];
     }

@@ -32,6 +32,7 @@ class Course
     private $sections;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $user;
 
     #[ORM\Column(type: 'datetime')]

@@ -1,3 +1,6 @@
+<!-- Define actual route to render the class active or not -->
+{% set route = app.request.attributes.get('_route') %}
+
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-danger shadow-sm">
 	<div class="container-fluid mx-5">
 		<a class="navbar-brand" href={{ path('app_home') }}>
@@ -9,17 +12,16 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
+					<a class="nav-link {{ actual_route('app_home', route) }}" href="{{ path('app_home') }}">Accueil</a>
 				</li>
 				{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 					<li>
-						<a class="nav-link" href="{{ path('app_register_instructor') }}">Inscription formateur</a>
+						<a class="nav-link {{ actual_route('app_register_instructor', route) }}" href="{{ path('app_register_instructor') }}">Inscription formateur</a>
 					</li>
 					<li>
-						<a class="nav-link" href="{{ path('app_register_user') }}">Inscription apprenant</a>
+						<a class="nav-link {{ actual_route('app_register_user', route) }}" href="{{ path('app_register_user') }}">Inscription apprenant</a>
 					</li>
 				{% endif %}
-				<!-- TODO: Create right path for Dashboard Roles -->
 				<li>
 					{% if is_granted('ROLE_ADMIN') %}
 						<a class="nav-link" href="{{ path('app_admin') }}">Administration</a>
@@ -33,13 +35,19 @@
 					{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 						<div class="d-flex flex-column flex-lg-row">
 							<p class="nav-link mb-0">Connecté en tant que
-								{{ app.user.firstname }}</p>
+								{{ app.user.firstname }}
+							</p>
 							<a class="nav-link" href="{{ path('app_logout') }}">Déconnnexion</a>
 						</div>
 					{% else %}
-						<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+						<a class="nav-link {{ actual_route('app_login', route) }}" href="{{ path('app_login') }}">Connexion</a>
 					{% endif %}
 				</li>
+				{% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.profilePhoto %}
+					<li class="nav-item">
+						<img class="img-fluid rounded-circle" src={{ asset('uploads/images/' ~ app.user.profilePhoto) }} width="40px" alt="photo de profil"/>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>
