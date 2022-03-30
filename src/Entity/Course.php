@@ -41,9 +41,16 @@ class Course
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $updatedAt;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isFinished;
+
+    #[ORM\ManyToMany(targetEntity: tag::class, inversedBy: 'courses')]
+    private $tags;
+
     public function __construct()
     {
         $this->sections = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,5 +175,41 @@ class Course
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getIsFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(tag $tag): self
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
     }
 }
