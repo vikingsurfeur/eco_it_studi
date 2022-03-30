@@ -1,7 +1,7 @@
 // Forms page layout
 .form__container {
     max-width: 80vw !important;
-    margin-top: 100px;
+    margin-top: 15vh;
 
     @include for-size(md) {
         max-width: 50vw !important;

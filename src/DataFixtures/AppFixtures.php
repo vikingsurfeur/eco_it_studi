@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\UserFactory;
+use App\Factory\CourseFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -27,6 +28,11 @@ class AppFixtures extends Fixture
             'roles' => ['ROLE_USER'],
         ]);
         UserFactory::createMany(10);
+
+        // Create some Courses
+        CourseFactory::createMany(10, [
+            'user' => UserFactory::random(),
+        ]);
 
         $manager->flush();
     }

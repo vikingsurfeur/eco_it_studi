@@ -3,6 +3,7 @@
 namespace App\Controller\Instructor;
 
 use App\Entity\User;
+use App\Form\ImagesFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -44,7 +45,9 @@ class InstructorCrudController extends AbstractCrudController
             ImageField::new('profilePhoto', 'Photo de profil')
                 ->setBasePath('/uploads/images/')
                 ->onlyOnIndex(),
-            TextField::new('image', 'Image')->setFormType(ImagesFormType::class),
+            TextField::new('profilePhoto', 'Photo de profil')
+                ->setFormType(ImagesFormType::class)
+                ->onlyOnForms(),
             TextEditorField::new('description'),
         ];
     }

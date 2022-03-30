@@ -42,14 +42,20 @@ class CourseCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('title', 'Titre'),
             DateField::new('createdAt', 'Créé le')->hideOnForm(),
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
-            SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
-            TextEditorField::new('description'),
+            SlugField::new('slug')
+                ->setTargetFieldName('title')
+                ->hideOnIndex(),
+            TextEditorField::new('description', 'Description'),
             AssociationField::new('tags', 'Tags'),
-            TextField::new('image', 'Image')->setFormType(ImagesFormType::class)->onlyOnForms(),
-            ImageField::new('image')->setBasePath('/uploads/images/')->onlyOnIndex(),
+            TextField::new('image', 'Image')
+                ->setFormType(ImagesFormType::class)
+                ->onlyOnForms(),
+            ImageField::new('image')
+                ->setBasePath('/uploads/images/')
+                ->onlyOnIndex(),
         ];
     }
 
