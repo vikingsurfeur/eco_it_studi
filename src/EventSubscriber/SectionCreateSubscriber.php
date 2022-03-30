@@ -23,25 +23,26 @@ class SectionCreateSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            BeforeEntityPersistedEvent::class => 'setSectionSlugAndDate',
-            BeforeEntityUpdatedEvent::class => 'setSectionSlugAndDateUpdated',
+            BeforeEntityPersistedEvent::class => 'setSectionPropertiesByDefault',
+            BeforeEntityUpdatedEvent::class => 'setSectionPropertiesByUpdated',
         ];
     }
 
-    public function setSectionSlugAndDate(BeforeEntityPersistedEvent $event)
+    public function setSectionPropertiesByDefault(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
         if ($entity instanceof Section) {
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setCreatedAt(new \DateTime('now'));
+            $entity->setIsFinished(false);
             $entity->setUser($this->security->getUser());
         }
 
         return;
     }
 
-    public function setSectionSlugAndDateUpdated(BeforeEntityUpdatedEvent $event)
+    public function setSectionPropertiesByUpdated(BeforeEntityUpdatedEvent $event)
     {
         $entity = $event->getEntityInstance();
 

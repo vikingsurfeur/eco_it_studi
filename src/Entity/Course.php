@@ -44,7 +44,7 @@ class Course
     #[ORM\Column(type: 'boolean')]
     private $isFinished;
 
-    #[ORM\ManyToMany(targetEntity: tag::class, inversedBy: 'courses')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'courses')]
     private $tags;
 
     public function __construct()
@@ -190,14 +190,14 @@ class Course
     }
 
     /**
-     * @return Collection<int, tag>
+     * @return Collection<int, Tag>
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function addTag(tag $tag): self
+    public function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
@@ -206,7 +206,7 @@ class Course
         return $this;
     }
 
-    public function removeTag(tag $tag): self
+    public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
 

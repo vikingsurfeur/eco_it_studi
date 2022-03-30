@@ -24,6 +24,9 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'tags')]
     private $courses;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tags')]
+    private $user;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -83,5 +86,22 @@ class Tag
         }
 
         return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

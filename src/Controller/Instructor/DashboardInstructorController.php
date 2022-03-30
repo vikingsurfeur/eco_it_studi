@@ -3,9 +3,9 @@
 namespace App\Controller\Instructor;
 
 use App\Entity\Course;
-use App\Entity\Image;
 use App\Entity\Lesson;
 use App\Entity\Section;
+use App\Entity\Tag;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -44,6 +44,7 @@ class DashboardInstructorController extends AbstractDashboardController
                 MenuItem::linkToCrud('Mes Cours', 'fas fa-book', Course::class),
                 MenuItem::linkToCrud('Mes Sections', 'fas fa-list', Section::class),
                 MenuItem::linkToCrud('Mes Lessons', 'fas fa-pen', Lesson::class),
+                MenuItem::linkToCrud('Mes Tags', 'fas fa-tags', Tag::class),
 
                 MenuItem::section('Mes informations'),
                 MenuItem::linkToCrud('Mon Profil', 'fas fa-user', User::class)

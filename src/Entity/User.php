@@ -65,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private $images;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tag::class)]
+    private $tags;
+
 
     public function __construct()
     {
@@ -72,6 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->images = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->lessons = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -372,6 +376,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($lesson->getUser() === $this) {
                 $lesson->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            // set the owning side to null (unless already changed)
+            if ($tag->getUser() === $this) {
+                $tag->setUser(null);
             }
         }
 

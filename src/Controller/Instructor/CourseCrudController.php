@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -46,7 +47,8 @@ class CourseCrudController extends AbstractCrudController
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
             TextEditorField::new('description'),
-            TextField::new('image', 'Image')->setFormType(ImagesFormType::class),
+            AssociationField::new('tags', 'Tags'),
+            TextField::new('image', 'Image')->setFormType(ImagesFormType::class)->onlyOnForms(),
             ImageField::new('image')->setBasePath('/uploads/images/')->onlyOnIndex(),
         ];
     }

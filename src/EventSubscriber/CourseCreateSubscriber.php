@@ -23,25 +23,26 @@ class CourseCreateSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            BeforeEntityPersistedEvent::class => 'setCourseSlugAndInstructor',
-            BeforeEntityUpdatedEvent::class => 'setCourseSlugAndInstructorUpdated',
+            BeforeEntityPersistedEvent::class => 'setCoursePropertiesByDefault',
+            BeforeEntityUpdatedEvent::class => 'setCoursePropertiesByUpdated',
         ];
     }
 
-    public function setCourseSlugAndInstructor(BeforeEntityPersistedEvent $event)
+    public function setCoursePropertiesByDefault(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
         if ($entity instanceof Course) {
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setCreatedAt(new \DateTime('now'));
+            $entity->setIsFinished(false);
             $entity->setUser($this->security->getUser());
         }
 
         return;
     }
 
-    public function setCourseSlugAndInstructorUpdated(BeforeEntityUpdatedEvent $event)
+    public function setCoursePropertiesByUpdated(BeforeEntityUpdatedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
