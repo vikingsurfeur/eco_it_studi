@@ -25,6 +25,10 @@ class Image
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'file')]
     private ?File $imageFile = null;
 
+    #[ORM\OneToOne(targetEntity: Course::class, mappedBy: 'image', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private $course;
+
     #[ORM\ManyToOne(targetEntity: Lesson::class, inversedBy: 'imagesLesson')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $lesson;
@@ -138,5 +142,27 @@ class Image
     public function __toString()
     {
         return $this->file;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($course === null && $this->course !== null) {
+            $this->course->setImage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($course !== null && $course->getImage() !== $this) {
+            $course->setImage($this);
+        }
+
+        $this->course = $course;
+
+        return $this;
     }
 }

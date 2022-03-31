@@ -42,8 +42,9 @@ final class CourseFactory extends ModelFactory
             'title' => self::faker()->text(),
             'slug' => self::faker()->text(),
             'description' => self::faker()->text(),
-            'createdAt' => new \DateTime('now'), // TODO add DATETIME ORM type manually
+            'createdAt' => new \DateTime('now'),
             'isFinished' => self::faker()->boolean(false),
+            'image' => ImageFactory::new(),
         ];
     }
 

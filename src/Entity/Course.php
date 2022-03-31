@@ -24,7 +24,7 @@ class Course
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\OneToOne(targetEntity: Image::class, inversedBy: 'course', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true)]
     private $image;
 
@@ -99,7 +99,7 @@ class Course
         return $this->image;
     }
 
-    public function setImage(Image $image): self
+    public function setImage(?Image $image): self
     {
         $this->image = $image;
 

@@ -48,6 +48,7 @@ final class UserFactory extends ModelFactory
             'plainPassword' => 'tada',
             'firstname' => self::faker()->firstNameMale(),
             'lastname' => self::faker()->lastName(),
+            'profilePhoto' => ImageFactory::new(),
         ];
     }
 

@@ -70,3 +70,11 @@ A super Admin :
 email : admin@example.com
 password : tada
 ```
+
+## Ready to Fight !
+
+<b>Now, you can log in with your admin ID and see your users on the dashboard.</b>  
+Move the accepted boolean field to the first instructor have you seen.
+Now you can log out and log back in with the Instructor account.  
+If you log in with the instructor account without having validated his account, you will see that the dashboard will be blocked pending validation by an admin.   
+So happy? Now that you are logged in as an instructor, you can create your courses, you sections and much more dude!    
