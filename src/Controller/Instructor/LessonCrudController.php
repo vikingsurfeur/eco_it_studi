@@ -3,6 +3,7 @@
 namespace App\Controller\Instructor;
 
 use App\Entity\Lesson;
+use App\Form\DocumentsFormType;
 use App\Form\ImagesFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
@@ -49,10 +50,12 @@ class LessonCrudController extends AbstractCrudController
             DateField::new('createdAt', 'Créé le')->hideOnForm(),
             TextField::new('video')->onlyOnForms(),
             CollectionField::new('imagesLesson', 'Images')
-                    ->setEntryType(ImagesFormType::class)
-                    ->setFormTypeOption('by_reference', false)
-                    ->onlyOnForms(),
-            AssociationField::new('documentsLesson', 'Documents')
+                ->setEntryType(ImagesFormType::class)
+                ->setFormTypeOption('by_reference', false)
+                ->onlyOnForms(),
+            CollectionField::new('documentsLesson', 'Documents')
+                ->setEntryType(DocumentsFormType::class)
+                ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
             TextEditorField::new('explanation'),

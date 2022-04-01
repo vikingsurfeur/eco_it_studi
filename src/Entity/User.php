@@ -65,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private $images;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class, cascade: ['persist'], orphanRemoval: true)]
+    private $documents;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tag::class)]
     private $tags;
 
@@ -73,6 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->courses = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->documents = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->lessons = new ArrayCollection();
         $this->tags = new ArrayCollection();
@@ -316,6 +320,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($image->getUser() === $this) {
                 $image->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documentss;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getUser() === $this) {
+                $document->setUser(null);
             }
         }
 

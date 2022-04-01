@@ -6,6 +6,7 @@ use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
@@ -22,6 +23,14 @@ class Image
     #[ORM\Column(type: 'string', length: 255)]
     private $file;
 
+    #[Assert\File(
+        maxSize: "5000k",
+        mimeTypes: [
+            "image/jpeg",
+            "image/png",
+        ],
+        mimeTypesMessage: "Veuillez uploader un fichier JPEG ou PNG",
+    )]
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'file')]
     private ?File $imageFile = null;
 
@@ -80,8 +89,6 @@ class Image
        $this->imageFile = $imageFile;
 
        if (null !== $imageFile) {
-           // It is required that at least one field changes if you are using doctrine
-           // otherwise the event listeners won't be called and the file is lost
            $this->updatedAt = new \DateTimeImmutable();
        }
    }
@@ -139,11 +146,6 @@ class Image
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->file;
-    }
-
     public function getCourse(): ?Course
     {
         return $this->course;
@@ -164,5 +166,10 @@ class Image
         $this->course = $course;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->file;
     }
 }
