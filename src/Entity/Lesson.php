@@ -225,11 +225,6 @@ class Lesson
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->title;
-    }
-
     public function getIsFinished(): ?bool
     {
         return $this->isFinished;
@@ -240,5 +235,10 @@ class Lesson
         $this->isFinished = $isFinished;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
