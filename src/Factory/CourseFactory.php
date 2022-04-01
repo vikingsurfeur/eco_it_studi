@@ -39,11 +39,11 @@ final class CourseFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'title' => self::faker()->text(),
-            'slug' => self::faker()->text(),
+            'title' => self::faker()->word(),
+            'slug' => self::faker()->word(),
             'description' => self::faker()->text(),
             'createdAt' => new \DateTime('now'),
-            'isFinished' => self::faker()->boolean(false),
+            'isFinished' => false,
             'image' => ImageFactory::new(),
         ];
     }

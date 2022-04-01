@@ -4,7 +4,8 @@ namespace App\DataFixtures;
 
 use App\Factory\UserFactory;
 use App\Factory\CourseFactory;
-use App\Factory\ImageFactory;
+use App\Factory\LessonFactory;
+use App\Factory\SectionFactory;
 use App\Factory\TagFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -32,12 +33,24 @@ class AppFixtures extends Fixture
         UserFactory::createMany(10);
 
         // Create one Tag with a special Tag will be a react / Miss you React <3
-        $tags = TagFactory::createOne();
+        $tags = TagFactory::createMany(2);
 
         // Create some Courses
         CourseFactory::createMany(10, [
             'user' => UserFactory::first(),
             'tags' => $tags,
+        ]);
+
+        // Create some Sections
+        SectionFactory::createOne([
+            'user' => UserFactory::first(),
+            'course' => CourseFactory::first(),
+        ]);
+
+        // Create some Lessons
+        LessonFactory::createMany(10, [
+            'user' => UserFactory::first(),
+            'section' => SectionFactory::first(),
         ]);
 
         $manager->flush();

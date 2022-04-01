@@ -77,4 +77,4 @@ password : tada
 Move the accepted boolean field to the first instructor have you seen.
 Now you can log out and log back in with the Instructor account.  
 If you log in with the instructor account without having validated his account, you will see that the dashboard will be blocked pending validation by an admin.   
-So happy? Now that you are logged in as an instructor, you can create your courses, you sections and much more dude!    
+So happy? Now that you are logged in as an instructor, you can create your courses, your sections and much more dude!    
