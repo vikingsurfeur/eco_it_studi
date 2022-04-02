@@ -50,6 +50,9 @@ class DashboardInstructorController extends AbstractDashboardController
                 MenuItem::linkToCrud('Mon Profil', 'fas fa-user', User::class)
                     ->setController(InstructorCrudController::class)
                 ,
+
+                MenuItem::section('Navigation'),
+                MenuItem::linkToRoute('Retour au site', 'fas fa-sign-out-alt', 'app_home'),
             ];
         } else {
             return [

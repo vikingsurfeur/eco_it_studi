@@ -71,6 +71,8 @@ email : admin@example.com
 password : tada
 ```
 
+#### <b>Beware Dude, CRSF is checked in my Security Protocol, you must cleared your cache before changing User log in !</b>
+
 ## Ready to Fight !
 
 <b>Now, you can log in with your admin ID and see your users on the dashboard.</b>  

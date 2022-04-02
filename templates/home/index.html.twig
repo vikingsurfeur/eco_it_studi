@@ -1,6 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Home - ECO IT{% endblock %}
-
 {% block body %}
+<div class="container-fluid g-0 homepage__container">
+    <!-- SUBTITLE -->
+    <section class="container homepage__container__subtitle">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center fw-bold">Bienvenue !</h2>
+                <h4 class="text-center">
+                    <span class="text-primary">ECO IT</span> est une plateforme d'apprentissage écologiquement
+                    responsable qui vous permet de vous former en toute simplicité.
+                </h4>
+            </div>
+        </div>
+    </section>
+    <!-- HEADER HERO -->
+    <div class="container-fluid homepage__container__headerhero">
+        <h1 class="homepage__container__headerhero__title">
+            <span class="homepage__container__headerhero__title__content">eco it</span>
+        </h1>
+    </div>
+    <!-- COURSES -->
+    <section class="container homepage__container__course">
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2 class="text-center">Nos derniers cours</h2>
+            </div>
+        </div>
+        <div class="row px-5">
+            {% for course in courses %}
+            <div class="col-12 col-md-6 col-lg-4 my-5">
+                <div class="card border-0 shadow p-2 homepage__container__course__card">
+                    <img class="card-img-top mx-auto pt-3 homepage__container__course__card__image" src="{{ course.image|getPathImage }}" alt="Card image cap">
+                    <div class="card-body mt-2">
+                        <h3 class="card-title">{{ course.title }}</h3>
+                        <p class="card-text">{{ course.description|truncateDescriptionCourse }}</p>
+                        <a 
+                            {% if app.user %}
+                                 href="{{ path('app_course_show_slug', {'slug': course.slug}) }}"
+                            {% else %}
+                                href="{{ path('app_login') }}"
+                            {% endif %}
+                            class="btn btn-primary text-white"
+                        >
+                            Voir le cours
+                        </a>
+                        <p class="card-text mt-4">
+                            <small class="text-muted">Formateur: {{ course.user.firstName }} {{ course.user.lastName }}</small>
+                            <br>
+                            <small class="text-muted">Crée le {{ course.createdAt|date('d/m/Y') }}</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
 {% endblock %}

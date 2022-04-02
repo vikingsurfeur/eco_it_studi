@@ -34,6 +34,9 @@ class DashboardAdminController extends AbstractDashboardController
             MenuItem::linkToCrud('Mes utilisateurs', 'fas fa-users', User::class)
                 ->setController(AdminCrudController::class)
             ,
+
+            MenuItem::section('Navigation'),
+            MenuItem::linkToRoute('Retour au site', 'fas fa-sign-out-alt', 'app_home'),
         ];
     }
 }
