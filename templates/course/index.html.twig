@@ -3,5 +3,25 @@
 {% block title %}Hello CourseShowController!{% endblock %}
 
 {% block body %}
-{{ dump(courses)}}
+<div class="container-fluid g-0 course__container">
+    <section class="container">
+        <div class="row px-5">
+            <div class="col text-center">
+                <h1>Tous nos cours</h1>
+                <h4>
+                    Vous trouverez ici la totalité de nous cours.
+                    <br>
+                    N'hésitez pas à parcourir notre catalogue.
+                    <br>
+                    Vous pouvez également lancer une recherche grâce à notre barre de recherche ci-dessous.
+                </h4>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="row px-5">
+            {% include 'components/course.loop.html.twig' %}
+        </div>
+    </section>
+</div>
 {% endblock %}

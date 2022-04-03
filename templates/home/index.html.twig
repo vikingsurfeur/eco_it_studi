@@ -25,36 +25,21 @@
     <section class="container homepage__container__course">
         <div class="row mt-5">
             <div class="col-12">
-                <h2 class="text-center">Nos derniers cours</h2>
+                <h2 class="text-center fw-bold">Nos derniers cours</h2>
             </div>
         </div>
         <div class="row px-5">
-            {% for course in courses %}
-            <div class="col-12 col-md-6 col-lg-4 my-5">
-                <div class="card border-0 shadow p-2 homepage__container__course__card">
-                    <img class="card-img-top mx-auto pt-3 homepage__container__course__card__image" src="{{ course.image|getPathImage }}" alt="Card image cap">
-                    <div class="card-body mt-2">
-                        <h3 class="card-title">{{ course.title }}</h3>
-                        <p class="card-text">{{ course.description|truncateDescriptionCourse }}</p>
-                        <a 
-                            {% if app.user %}
-                                 href="{{ path('app_course_show_slug', {'slug': course.slug}) }}"
-                            {% else %}
-                                href="{{ path('app_login') }}"
-                            {% endif %}
-                            class="btn btn-primary text-white"
-                        >
-                            Voir le cours
-                        </a>
-                        <p class="card-text mt-4">
-                            <small class="text-muted">Formateur: {{ course.user.firstName }} {{ course.user.lastName }}</small>
-                            <br>
-                            <small class="text-muted">Crée le {{ course.createdAt|date('d/m/Y') }}</small>
-                        </p>
-                    </div>
-                </div>
+            {% include 'components/course.loop.html.twig' %}
+        </div>
+    </section>
+    <!-- DISCLAIMER -->
+    <section class="container homepage__container__disclaimer">
+        <div class="row">
+            <div class="col">
+                <h5 class="text-center">
+                    Vous n'êtes pas inscrit à la plateforme ? <a href="{{ path('app_login') }}">Cliquez ici</a> pour en savoir plus.
+                </h5>
             </div>
-            {% endfor %}
         </div>
     </section>
 </div>
