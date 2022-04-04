@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -48,9 +49,12 @@ class CourseCrudController extends AbstractCrudController
             SlugField::new('slug')
                 ->setTargetFieldName('title')
                 ->hideOnIndex(),
-            TextEditorField::new('description', 'Description'),
+            TextareaField::new('description', 'Description')->onlyOnForms(),
+            TextEditorField::new('description', 'Description')->onlyOnIndex(),
             AssociationField::new('tags', 'Tags'),
-            TextField::new('image', 'Image')
+            TextField::new('image')
+                ->setLabel(false)
+                ->setRequired(true)
                 ->setFormType(ImagesFormType::class)
                 ->onlyOnForms(),
             ImageField::new('image')

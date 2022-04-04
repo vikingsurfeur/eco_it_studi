@@ -1,0 +1,8 @@
+// Style course card
+.course {
+    &__card {
+        &__image {
+            width: 50% !important;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 {% for course in courses %}
 	<div class="col-12 col-md-6 col-lg-4 my-5">
-		<div class="card border-0 shadow p-2 homepage__container__course__card">
-			<img class="card-img-top mx-auto pt-3 homepage__container__course__card__image" src="{{ course.image|getPathImage }}" alt="Card image cap">
+		<div class="card border-0 shadow p-2 course__card">
+			<img class="card-img-top mx-auto pt-3 course__card__image" src="{{ course.image|getPathImage }}" alt="Card image cap">
 			<div class="card-body mt-2">
 				<h3 class="card-title">{{ course.title }}</h3>
 				<p class="card-text">{{ course.description|truncateDescriptionCourse }}</p>

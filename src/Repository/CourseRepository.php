@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Course;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -45,6 +46,20 @@ class CourseRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * return Course[] searching by tag
+     */
+    public function findByTag(Tag $tag): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.tags', 't')
+            ->where('t.id = :tag')
+            ->setParameter('tag', $tag->getId())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ECO IT | RECHERCHER UN COURS{% endblock %}
+
+{% block body %}
+<div class="container-fluid g-0 search__container">
+    <section class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center fw-bold h2">Rechercher un cours</h1>
+            </div>
+        </div>
+    </section>
+    <section class="container search__container__form">
+        <div class="row">
+            <div class="col">
+                {{ form_start(search_form, {'attr': {
+                        'id': 'searchForm', 
+                        'action': path('app_search'),    
+                    }}) 
+                }}
+                {{ form_label(search_form.search, 'Rechercher un cours') }}
+                {{ form_widget(search_form.search, {'id': 'searchInput'} ) }}
+                <button type="submit" class="btn btn-primary text-white mt-4">
+                    Rechercher
+                    <i class="fas fa-search"></i>    
+                </button>
+                {{ form_end(search_form) }}
+            </div>
+        </div>
+    </section>
+    <section class="container search__container__result">
+        <div class="row" id="searchResult">
+            {% if courses %}
+                {% include 'components/course.loop.html.twig' %}
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('search') }}
+{% endblock %}

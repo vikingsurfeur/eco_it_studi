@@ -1,27 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CourseShowController!{% endblock %}
+{% block title %}ECO IT | NOS COURS
+{% endblock %}
 
 {% block body %}
-<div class="container-fluid g-0 course__container">
-    <section class="container">
-        <div class="row px-5">
-            <div class="col text-center">
-                <h1>Tous nos cours</h1>
-                <h4>
-                    Vous trouverez ici la totalité de nous cours.
-                    <br>
-                    N'hésitez pas à parcourir notre catalogue.
-                    <br>
-                    Vous pouvez également lancer une recherche grâce à notre barre de recherche ci-dessous.
-                </h4>
-            </div>
-        </div>
-    </section>
-    <section class="container">
-        <div class="row px-5">
-            {% include 'components/course.loop.html.twig' %}
-        </div>
-    </section>
-</div>
+	<div class="container-fluid g-0 course__container">
+		<section class="container">
+			<div class="row px-5">
+				<div class="col text-center">
+					<h1 class="text-center fw-bold h2">Nos cours</h1>
+					<h4>
+						Vous trouverez ici la totalité de nous cours.
+						<br>
+						N'hésitez pas à parcourir notre catalogue.
+					</h4>
+					<hr>
+					<h5>
+						Recherchez un cours en particulier.
+					</h5>
+					<a class="btn btn-primary text-white" href="{{ path('app_search') }}">
+						<i class="fas fa-search"></i>
+						Rechercher un cours
+					</a>
+				</div>
+			</div>
+		</section>
+		<!-- COURSE LIST -->
+		<section class="container">
+			<div class="row px-5">
+				{% include 'components/course.loop.html.twig' %}
+			</div>
+		</section>
+		{# display navigation #}
+		<div class="d-flex justify-content-center navigation">
+			{{ knp_pagination_render(courses, 'components/pagination.html.twig') }}
+		</div>
+	</div>
 {% endblock %}

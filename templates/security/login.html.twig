@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion - ECO IT
-{% endblock %}
+{% block title %}ECO IT | CONNEXION{% endblock %}
 
 {% block body %}
 	<div class="container form__container">
+		<!-- FORM -->
 		<div class="row">
 			<div class="login-form bg-light mt-5 p-5 shadow rounded">
 				<form method="post" class="row g-3">
 					<h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
-
 					<div class="col-12 mb-2">
 						<label class="mb-3 required" for="inputEmail">Email</label>
 						<input type="email" name="email" id="inputEmail" class="form-control" value="{{ last_username }}" required autofocus>
@@ -43,6 +42,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- DISCLAIMER -->
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-12 mt-5 mb-2">

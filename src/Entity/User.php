@@ -331,7 +331,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getDocuments(): Collection
     {
-        return $this->documentss;
+        return $this->documents;
     }
 
     public function addDocument(Document $document): self

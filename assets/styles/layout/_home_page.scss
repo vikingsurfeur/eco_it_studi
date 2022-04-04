@@ -1,6 +1,6 @@
 // Home page layout
 .homepage__container {
-    margin-top: 10vh;
+    margin-top: 15vh;
 
     &__subtitle {
         margin-bottom: 2.5rem;
@@ -8,7 +8,7 @@
 
     &__headerhero {
         position: relative;
-        min-height: 30vh;
+        min-height: 40vh;
         background-image: url('/assets/images/eco_it_headerhero.jpg');
         background-size: cover;
         background-position: center;
@@ -22,21 +22,13 @@
             transform: translate(-50%, -50%);
 
             &__content {
-                color: white;
+                color: $secondary;
                 font-size: 3rem;
                 font-weight: bold;
                 line-height: 1.2;
                 letter-spacing: 0.1rem;
                 text-transform: uppercase;
                 text-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
-            }
-        }
-    }
-
-    &__course {
-        &__card {
-            &__image {
-                width: 50% !important;
             }
         }
     }

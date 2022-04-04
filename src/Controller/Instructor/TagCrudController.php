@@ -49,7 +49,8 @@ class TagCrudController extends AbstractCrudController
                 return $action->setIcon('fas fa-plus-circle')->setLabel('Ajouter un tag');
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
-                return $action->setIcon('fas fa-trash-alt')->setLabel('Supprimer un tag');
+                // Disable the delete action
+                return $action->setCssClass('d-none');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action->setIcon('fas fa-edit')->setLabel('Modifier un tag');

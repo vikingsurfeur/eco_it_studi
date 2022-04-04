@@ -3,18 +3,22 @@
 // Mixins
 @import "../styles/mixins/media_queries_helper";
 
-// Layout
-@import "../styles/layout/body",
-        "../styles/layout/nav",
-        "../styles/layout/home_page",
-        "../styles/layout/course_page",
-        "../styles/layout/forms_page";
-
 // Themes
 @import "../styles/theme/colors",
         "../styles/theme/forms",
         "../styles/theme/nav",
         "../styles/theme/typography";
+
+// Layout
+@import "../styles/layout/body",
+        "../styles/layout/home_page",
+        "../styles/layout/course_page",
+        "../styles/layout/forms_page",
+        "../styles/layout/search_page";
+
+// Component
+@import "../styles/components/course_card",
+        "../styles/components/nav";
 
 // Import Boostrap Styles
 @import "~bootstrap/scss/bootstrap";
