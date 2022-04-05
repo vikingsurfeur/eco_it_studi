@@ -43,9 +43,29 @@ class CourseController extends AbstractController
         }
 
         $course = $courseRepository->findBy(['slug' => $slug]);
+        $sections = $course[0]->getSections();
+        $sectionsValues = $sections->getValues();
 
-        return $this->render('course/show.one.html.twig', [
-            'course' => $course,
-        ]);
+        if(empty($sections)) {
+            return $this->render('course/show.one.html.twig', [
+                'course' => $course[0],
+                'sections' => null,
+                'lessons' => null,
+            ]);
+        } else {
+            foreach ($sectionsValues as $section) {
+                $lessons[] = $section->getLessons();
+            }
+
+            foreach ($lessons as $lesson) {
+                $lessonsValues[] = $lesson->getValues();
+            }
+
+            return $this->render('course/show.one.html.twig', [
+                'course' => $course[0],
+                'sections' => $sectionsValues,
+                'lessons' => $lessonsValues,
+            ]);
+        }
     }
 }

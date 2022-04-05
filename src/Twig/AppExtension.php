@@ -21,6 +21,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('truncateDescriptionCourse', [$this, 'truncateDescriptionCourse']),
             new TwigFilter('getPathImage', [$this, 'getPathImage']),
+            new TwigFilter('getPathDocument', [$this, 'getPathDocument']),
         ];
     }
 
@@ -34,6 +35,11 @@ class AppExtension extends AbstractExtension
     public function getPathImage(string $path): string
     {
         return '/uploads/images/'.$path;
+    }
+
+    public function getPathDocument(string $path): string
+    {
+        return '/uploads/documents/'.$path;
     }
 
     public function truncateDescriptionCourse(string $description): string

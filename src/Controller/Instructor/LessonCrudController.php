@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -48,7 +49,11 @@ class LessonCrudController extends AbstractCrudController
                 ->setRequired(true),
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
             DateField::new('createdAt', 'Créé le')->hideOnForm(),
-            TextField::new('video')->onlyOnForms(),
+            TextField::new('video')
+                ->setLabel('Insérer le lien embed de la vidéo, non l\'URL complète.
+                    Pour obtenir le lien embed d\'une vidéo, 
+                    cliquez sur le bouton "Partager", puis intégrer <>')
+                ->onlyOnForms(),
             CollectionField::new('imagesLesson', 'Images')
                 ->setEntryType(ImagesFormType::class)
                 ->setFormTypeOption('by_reference', false)
@@ -58,7 +63,8 @@ class LessonCrudController extends AbstractCrudController
                 ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
-            TextEditorField::new('explanation'),
+            TextareaField::new('explanation')->onlyOnForms(),
+            TextEditorField::new('explanation')->onlyOnIndex(),
         ];
     }
 
