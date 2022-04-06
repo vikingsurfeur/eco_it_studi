@@ -38,7 +38,7 @@ const fetchCourseRequest = async (url) => {
     };
 
     try {
-        // Fetching the data from the server
+        // Fetching the data from the database
         const response = await fetch(url, fetchingOptions);
         const htmlResponse = await response.text();
 

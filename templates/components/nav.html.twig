@@ -6,26 +6,44 @@
 		<a class="navbar-brand" href={{ path('app_home') }}>
 			<img src="{{ asset('build/images/eco_it_logo.png') }}" width="80px" alt="logo eco-it"/>
 		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<button 
+			class="navbar-toggler" 
+			type="button" 
+			data-bs-toggle="collapse" 
+			data-bs-target="#navbarSupportedContent" 
+			aria-controls="navbarSupportedContent" 
+			aria-expanded="false" 
+			aria-label="Toggle navigation"
+		>
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link {{ actual_route('app_home', route) }}" href="{{ path('app_home') }}">Accueil</a>
+					<a class="nav-link {{ actual_route('app_home', route) }}" href="{{ path('app_home') }}">
+						Accueil
+					</a>
 				</li>
 				<li class="nav-item">
-						<a class="nav-link {{ actual_route('app_course', route) }}" href="{{ path('app_course') }}">Nos Cours</a>
+						<a class="nav-link {{ actual_route('app_course', route) }}" href="{{ path('app_course') }}">
+							Nos Cours
+						</a>
 				</li>
+				<!-- DISPLAY OR NOT FORM REGISTRATION -->
 				{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-					<li>
-						<a class="nav-link {{ actual_route('app_register_instructor', route) }}" href="{{ path('app_register_instructor') }}">Inscription formateur</a>
+					<li class="nav-item">
+						<a class="nav-link {{ actual_route('app_register_instructor', route) }}" href="{{ path('app_register_instructor') }}">
+							Inscription formateur
+						</a>
 					</li>
 					<li>
-						<a class="nav-link {{ actual_route('app_register_user', route) }}" href="{{ path('app_register_user') }}">Inscription apprenant</a>
+						<a class="nav-link {{ actual_route('app_register_user', route) }}" href="{{ path('app_register_user') }}">
+							Inscription apprenant
+						</a>
 					</li>
 				{% endif %}
-				<li>
+				<!-- USER ROLES NAVIGATION -->
+				<li class="nav-item">
 					{% if is_granted('ROLE_ADMIN') %}
 						<a class="nav-link" href="{{ path('app_admin') }}">Administration</a>
 					{% elseif is_granted('ROLE_INSTRUCTOR') %}
@@ -34,9 +52,11 @@
 						<a class="nav-link" href="{{ path('app_user') }}">Mon compte</a>
 					{% endif %}
 				</li>
+				<!-- DISPLAY LOGIN OR LOGOUT LINK -->
 				<li class="nav-item">
 					{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 						<div class="d-flex flex-column flex-lg-row">
+							<a class="nav-link" href="{{ path('app_user_course') }}">Mes cours</a>
 							<p class="nav-link mb-0">Connecté en tant que
 								{{ app.user.firstname }}
 							</p>
@@ -46,9 +66,15 @@
 						<a class="nav-link {{ actual_route('app_login', route) }}" href="{{ path('app_login') }}">Connexion</a>
 					{% endif %}
 				</li>
+				<!-- USER PROFILE PICTURE -->
 				{% if is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.profilePhoto %}
 					<li class="nav-item">
-						<img class="img-fluid rounded-circle ms-lg-2 mt-2 mt-lg-0" src={{ asset('uploads/images/' ~ app.user.profilePhoto) }} width="40px" alt="photo de profil"/>
+						<img 
+							class="img-fluid rounded-circle ms-lg-2 mt-2 mt-lg-0" 
+							src={{ asset('uploads/images/' ~ app.user.profilePhoto) }} 
+							width="40px" 
+							alt="photo de profil"
+						/>
 					</li>
 				{% endif %}
 			</ul>

@@ -29,14 +29,6 @@ class DashboardUserController extends AbstractDashboardController
         return [
             MenuItem::linkToDashboard('Accueil', 'fa fa-home'),
 
-            MenuItem::section('Mes Cours'),
-            // MenuItem::linkToCrud('Mes Cours', 'fas fa-book', Course::class),
-                // ->setController(LearnerCourseCrudController::class)
-            // MenuItem::linkToCrud('Mes Sections', 'fas fa-list', Section::class),
-                // ->setController(LearnerSectionCrudController::class)
-            // MenuItem::linkToCrud('Mes Lessons', 'fas fa-pen', Lesson::class),
-                // ->setController(LearnerLessonCrudController::class)
-
             MenuItem::section('Mes informations'),
             MenuItem::linkToCrud('Mon Profil', 'fas fa-user', User::class)
                 ->setController(LearnerCrudController::class)

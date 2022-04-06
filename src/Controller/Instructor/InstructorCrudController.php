@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class InstructorCrudController extends AbstractCrudController
 {
@@ -40,6 +41,9 @@ class InstructorCrudController extends AbstractCrudController
     {
         return [
             TextField::new('email'),
+            TextField::new('password', 'Mot de passe')
+                ->setFormType(PasswordType::class)
+                ->onlyOnForms(),
             TextField::new('firstname', 'Prénom'),
             TextField::new('lastname', 'Nom'),
             ImageField::new('profilePhoto', 'Photo de profil')

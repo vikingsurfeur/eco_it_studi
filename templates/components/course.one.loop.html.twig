@@ -1,0 +1,110 @@
+{% for section in sections %}
+	<h2 class="d-flex justify-content-center align-items-center my-5 course__one__container__title">
+		<span class="badge bg-secondary me-4">Section</span>
+		{{ section.title }}
+	</h2>
+	{% if lessons %}
+		{% for lesson in lessons %}
+			{% for lessonValues in lesson %}
+				{% if lessonValues.section.id == section.id %}
+					<div class="row px-5 my-5">
+						<div class="col-12">
+							<div class="accordion" id="{{ lessonValues.title|replace({' ': ''}) }}">
+								<div class="accordion-item">
+									<h3 class="accordion-header d-flex align-items-center course__one__container__title" id="{{ lessonValues.title|replace({' ': ''}) }}">
+										<button 
+											class="accordion-button collapsed" 
+											type="button" 
+											data-bs-toggle="collapse" 
+											data-bs-target="#{{ lessonValues.title|replace({' ': ''}) }}{{ lessonValues.id }}" 
+											aria-expanded="true" 
+											aria-controls="{{ lessonValues.title|replace({' ': ''}) }}{{ lessonValues.id }}"
+										>
+											<span class="badge bg-warning me-4">Lesson</span>
+											{{ lessonValues.title }}
+										</button>
+									</h3>
+									<div 
+										id="{{ lessonValues.title|replace({' ': ''}) }}{{ lessonValues.id }}" 
+										class="accordion-collapse collapse" 
+										aria-labelledby="{{ lessonValues.title|replace({' ': ''}) }}"
+										data-bs-parent="#{{ lessonValues.title|replace({' ': ''}) }}"
+									>
+										<div class="accordion-body">
+											<div class="row px-5 my-5">
+												<div class="col-12 col-lg-6">
+													<h5>Descriptif de la lesson :</h5>
+													<p>
+														{{ lessonValues.explanation }}
+													</p>
+												</div>
+												<div class="col-12 col-lg-6">
+													<h5>Vidéo tutoriel :</h5>
+													<div class="course__one__container__video">
+														<iframe
+															class="course__one__container__video__iframe"
+															width="560" 
+															height="315"
+															src="{{ lessonValues.video }}" 
+															title="YouTube video player" 
+															allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+															allowfullscreen>
+														</iframe>
+													</div>
+												</div>
+											</div>
+											<div class="row px-5 my-5">
+												<div class="col-12">
+													<h5>Documents disponibles au téléchargement</h5>
+												</div>
+												<div class="col-12 col-lg-6">
+													<h6>Documents PDF :</h6>
+													<ul class="list-group">
+														{% for document in lessonValues.documentsLesson %}
+															{% if lessonValues.id == document.lesson.id %}
+																<li class="list-group-item">
+																	<a href="{{ document.file|getPathDocument }}" download>
+																		{{ document.name }}
+																	</a>
+																</li>
+															{% endif %}
+														{% endfor %}
+													</ul>
+												</div>
+												<div class="col-12 col-lg-6">
+													<h6>Images de la lesson :</h6>
+													<ul class="list-group">
+														{% for image in lessonValues.imagesLesson %}
+															{% if lessonValues.id == image.lesson.id %}
+																<li class="list-group-item">
+																	<a href="{{ image.file|getPathImage }}" download>
+																		{{ image.name }}
+																	</a>
+																</li>
+															{% endif %}
+														{% endfor %}
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	{% else %}
+		<div class="row px-5 my-5">
+			<div class="col-12">
+				<div class="alert alert-warning">
+					<h5 class="text-center">
+						Aucune lesson n'a été trouvée pour cette section.
+					</h5>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	<hr>
+{% endfor %}

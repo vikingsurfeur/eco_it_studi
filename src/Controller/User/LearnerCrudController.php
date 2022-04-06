@@ -13,8 +13,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class LearnerCrudController extends AbstractCrudController
 {
@@ -39,12 +41,16 @@ class LearnerCrudController extends AbstractCrudController
     {
         return [
             TextField::new('email'),
+            TextField::new('password', 'Mot de passe')
+                ->setFormType(PasswordType::class)
+                ->onlyOnForms(),
             TextField::new('firstname', 'Prénom'),
             TextField::new('lastname', 'Nom'),
             TextField::new('pseudo', 'Pseudo'),
             AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnIndex(),
             AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnForms(),
-            TextEditorField::new('description'),
+            TextEditorField::new('description')->onlyOnIndex(),
+            TextareaField::new('description')->onlyOnForms(),
         ];
     }
 
