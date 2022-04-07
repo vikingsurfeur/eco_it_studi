@@ -47,10 +47,14 @@ class Course
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'courses')]
     private $tags;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'learnersCourses')]
+    private $learners;
+
     public function __construct()
     {
         $this->sections = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->learners = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,6 +213,30 @@ class Course
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getLearners(): Collection
+    {
+        return $this->learners;
+    }
+
+    public function addLearner(User $learner): self
+    {
+        if (!$this->learners->contains($learner)) {
+            $this->learners[] = $learner;
+        }
+
+        return $this;
+    }
+
+    public function removeLearner(User $learner): self
+    {
+        $this->learners->removeElement($learner);
 
         return $this;
     }

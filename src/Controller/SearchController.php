@@ -31,7 +31,6 @@ class SearchController extends AbstractController
             $search = $searchCourseForm->get('search')->getData();
             $tag = $tagRepository->findBy(['name' => $search]);
 
-            $courses = [];
             empty($tag) ?
                 $courses = null :
                 $courses = $courseRepository->findByTag($tag[0]);

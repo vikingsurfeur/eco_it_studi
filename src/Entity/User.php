@@ -71,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Tag::class)]
     private $tags;
 
+    #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'learners')]
+    private $learnersCourses;
+
 
     public function __construct()
     {
@@ -80,6 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sections = new ArrayCollection();
         $this->lessons = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->learnersCourses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -441,6 +445,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($tag->getUser() === $this) {
                 $tag->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getLearnersCourses(): Collection
+    {
+        return $this->learnersCourses;
+    }
+
+    public function addLearnersCourse(Course $learnersCourse): self
+    {
+        if (!$this->learnersCourses->contains($learnersCourse)) {
+            $this->learnersCourses[] = $learnersCourse;
+            $learnersCourse->addLearner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLearnersCourse(Course $learnersCourse): self
+    {
+        if ($this->learnersCourses->removeElement($learnersCourse)) {
+            $learnersCourse->removeLearner($this);
         }
 
         return $this;

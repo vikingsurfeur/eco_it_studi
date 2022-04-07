@@ -63,17 +63,13 @@ class CourseRepository extends ServiceEntityRepository
     /**
      * Add the course to the user's subscribed courses
      */
-    public function addUserToCourse($userId, $courseId): void
+    public function addLearnerToCourse($userId, $courseId): void
     {
-        $this->_em->createQuery(
-            'UPDATE App\Entity\Course c
-            SET c.user = :user
-            WHERE c.id = :course'
-        )
-            ->setParameter('user', $userId)
-            ->setParameter('course', $courseId)
-            ->execute()
-        ;
+        $user = $this->_em->getRepository('App:User')->find($userId);
+        $course = $this->_em->getRepository('App:Course')->find($courseId);
+        $user->addLearnersCourse($course);
+        $this->_em->persist($user);
+        $this->_em->flush();
     }
 
     // /**

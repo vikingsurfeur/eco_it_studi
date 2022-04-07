@@ -56,8 +56,8 @@ class CourseController extends BaseController
         if ($userSubscriberCourseForm->isSubmitted() && $userSubscriberCourseForm->isValid()) {
             $userSubscriberCourseFormData = $userSubscriberCourseForm->getData();
             
-            // Add the user to the course
-            $courseRepository->addUserToCourse(
+            // Add the user 'learner' to the course
+            $courseRepository->addLearnerToCourse(
                 $userSubscriberCourseFormData['user_id'],
                 $userSubscriberCourseFormData['course_id']
             );
@@ -72,10 +72,21 @@ class CourseController extends BaseController
 
         // Ckeck if the user is enrolled in the course
         $user = $this->getUser(); 
-        $user->getId() === $course[0]->getUser()->getId() ? $isEnrolled = true : $isEnrolled = false;
+        $learners = $course[0]->getLearners()->getValues();
+        
+        // If the course have learners, check if the user is enrolled in the course
+        if (!empty($learners)) {
+            foreach ($learners as $learner) {
+                if ($learner->getId() === $user->getId()) {
+                    $isEnrolled = true;
+                }
+            }
+        } else {
+            $isEnrolled = false;
+        }
 
         // If sections array is empty, redirect to the course page with some null values
-        if(empty($sections)) {
+        if (empty($sections)) {
             return $this->render('course/show.one.html.twig', [
                 'course' => $course[0],
                 'sections' => null,
@@ -90,7 +101,7 @@ class CourseController extends BaseController
             }
 
             // If the lessons array isn't empty, return the course page with the lessons
-            if(!empty($lessons)) {
+            if (!empty($lessons)) {
                 foreach ($lessons as $lesson) {
                     $lessonsValues[] = $lesson->getValues();
                 }
