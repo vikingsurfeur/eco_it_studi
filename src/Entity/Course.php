@@ -41,9 +41,6 @@ class Course
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $updatedAt;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isFinished;
-
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'courses')]
     private $tags;
 
@@ -176,23 +173,6 @@ class Course
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->title;
-    }
-
-    public function getIsFinished(): ?bool
-    {
-        return $this->isFinished;
-    }
-
-    public function setIsFinished(bool $isFinished): self
-    {
-        $this->isFinished = $isFinished;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Tag>
      */
@@ -239,5 +219,10 @@ class Course
         $this->learners->removeElement($learner);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

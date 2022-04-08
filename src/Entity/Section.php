@@ -38,9 +38,6 @@ class Section
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $user;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isFinished;
-
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
@@ -156,17 +153,5 @@ class Section
     public function __toString()
     {
         return $this->title;
-    }
-
-    public function getIsFinished(): ?bool
-    {
-        return $this->isFinished;
-    }
-
-    public function setIsFinished(bool $isFinished): self
-    {
-        $this->isFinished = $isFinished;
-
-        return $this;
     }
 }

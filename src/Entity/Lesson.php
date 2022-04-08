@@ -47,9 +47,6 @@ class Lesson
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isFinished;
-
     public function __construct()
     {
         $this->imagesLesson = new ArrayCollection();
@@ -221,18 +218,6 @@ class Lesson
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getIsFinished(): ?bool
-    {
-        return $this->isFinished;
-    }
-
-    public function setIsFinished(bool $isFinished): self
-    {
-        $this->isFinished = $isFinished;
 
         return $this;
     }

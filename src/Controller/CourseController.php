@@ -136,10 +136,7 @@ class CourseController extends BaseController
         $id)
     {
         if ($request->getMethod() === 'POST') {
-            // First find the 
-            $user = $this->getUser();
-            $lesson = $lessonRepository->find($id);
-            $lessonLearner = $lesson->getLearners()->getValues();
+
         }
     }
 }
