@@ -25,7 +25,8 @@ class SearchController extends AbstractController
 
         $searchCourseForm = $this->createForm(SearchCourseType::class);
         $searchCourseForm->handleRequest($request);
-
+        $courses = [];
+        
         if($searchCourseForm->isSubmitted() && $searchCourseForm->isValid()) {
             $search = $searchCourseForm->get('search')->getData();
             $tag = $tagRepository->findBy(['name' => $search]);
@@ -37,7 +38,7 @@ class SearchController extends AbstractController
 
         return $this->render('search/index.html.twig', [
             'search_form' => $searchCourseForm->createView(),
-            'courses' => $courses ?? null,
+            'courses' => $courses,
         ]);
     }
 }

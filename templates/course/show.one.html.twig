@@ -45,9 +45,10 @@
 		{% if isEnrolled %}
 			<section class="container">
 				<div class="row px-5">
+				<!-- FUCKING CRAZY LOOP -->
 					<div class="col-12">
 						{% if sections %}
-							{% include 'components/course.one.loop.html.twig' %}
+							{% include 'components/course.single.loop.html.twig' %}
 						{% else %}
 							<div class="alert alert-warning">
 								<h5 class="text-center">

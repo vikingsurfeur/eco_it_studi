@@ -70,7 +70,18 @@ class CourseController extends BaseController
 
         // Retrieve the sections from the database by the course
         $sections = $course[0]->getSections();
-        $sectionsValues = $sections->getValues();
+
+        if (!empty($sections)) {
+            $sectionsValues = $sections->getValues();
+        }
+
+        // Retrieve the lessons from the database by the sections
+        if (!empty($sectionsValues)) {
+            foreach ($sectionsValues as $section) {
+                $lessons = $section->getLessons();
+                $lessonsValues[] = $lessons->getValues();
+            }
+        }
 
         // Ckeck if the user is enrolled in the course
         $user = $this->getUser(); 
@@ -97,56 +108,29 @@ class CourseController extends BaseController
             foreach ($userProgressValues as $userProgressValue) {
                 $currentCoursesProgress[] = $userProgressValue->getCourses();
             }
+
             $currentCoursesProgressValues = [];
             foreach ($currentCoursesProgress as $currentCoursesProgressValue) {
                 $currentCoursesProgressValues[] = $currentCoursesProgressValue->getValues();
             }
+
             foreach ($currentCoursesProgressValues as $currentCoursesProgressValue) {
                 if ($currentCoursesProgressValue[0]->getId() === $course[0]->getId()) {
                     $currentUserProgress = $currentCoursesProgressValue[0];
                     $currentUserProgressValues = $currentUserProgress->getProgress()->getValues();
                 }
             }
-        } else {
-            $userProgress = null;
         }
-        
 
-        // If sections array is empty, redirect to the course page with some null values
-        if (empty($sections)) {
-            return $this->render('course/show.one.html.twig', [
-                'course' => $course[0],
-                'sections' => null,
-                'lessons' => null,
-                'userProgress' => $currentUserProgressValues[0] ?? null,
-                'isEnrolled' => $isEnrolled,
-                'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
-            ]);
-        // If sections array is fullfilled, check if it have some lessons
-        } else {
-            foreach ($sectionsValues as $section) {
-                $lessons[] = $section->getLessons();
-            }
-
-            // If the lessons array isn't empty, return the course page with the lessons
-            if (!empty($lessons)) {
-                foreach ($lessons as $lesson) {
-                    $lessonsValues[] = $lesson->getValues();
-                }
-            } else {
-                $lessonsValues = null;
-            }
-
-            return $this->render('course/show.one.html.twig', [
-                'course' => $course[0],
-                'sections' => $sectionsValues,
-                'lessons' => $lessonsValues,
-                'isEnrolled' => $isEnrolled,
-                'userProgress' => $currentUserProgressValues[0] ?? null,
-                'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
-            ]);
-        }
-    }
+        return $this->render('course/show.one.html.twig', [
+            'course' => $course[0],
+            'sections' => $sectionsValues,
+            'lessons' => $lessonsValues ?? null,
+            'userProgress' => $currentUserProgressValues[0] ?? null,
+            'isEnrolled' => $isEnrolled ?? null,
+            'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
+        ]);
+    }   
 
     // SUBSCRIBE TO COURSE
     #[Route('/course/{slug}/subscribe', name: 'app_course_subscribe')]
@@ -175,21 +159,21 @@ class CourseController extends BaseController
             // First step, find all sections / lessons of the course
             $course = $courseRepository->findOneBy(['slug' => $slug]);
             $sections = $course->getSections();
-            if (!empty($sections)) {
-                foreach ($sections as $section) {
-                    $lessons = $section->getLessons();
-                }
-            }
 
             // Second step, create a progress for the user for this course
             $progress = new Progress();
             $progress->addUser($this->getUser());
             $progress->addCourse($course);
 
-            foreach ($sections as $section) {
-                $progress->addSection($section);
-            };
+            // If the sections array isn't empty, add the sections to the progress
+            if (!empty($sections)) {
+                foreach ($sections as $section) {
+                    $progress->addSection($section);
+                    $lessons = $section->getLessons();
+                }
+            }
 
+            // If the lessons array isn't empty, add the lessons to the progress
             if (!empty($lessons)) {
                 foreach ($lessons as $lesson) {
                     $progress->addLesson($lesson);
