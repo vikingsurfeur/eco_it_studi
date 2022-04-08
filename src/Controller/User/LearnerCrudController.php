@@ -49,8 +49,8 @@ class LearnerCrudController extends AbstractCrudController
             TextField::new('pseudo', 'Pseudo'),
             AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnIndex(),
             AssociationField::new('profilePhoto', 'Photo de profil')->onlyOnForms(),
-            TextEditorField::new('description')->onlyOnIndex(),
-            TextareaField::new('description')->onlyOnForms(),
+            TextEditorField::new('description', 'A propos de moi')->onlyOnIndex(),
+            TextareaField::new('description', 'A propos de moi')->onlyOnForms(),
         ];
     }
 

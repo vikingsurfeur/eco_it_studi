@@ -52,12 +52,12 @@ class CourseCrudController extends AbstractCrudController
             TextareaField::new('description', 'Description')->onlyOnForms(),
             TextEditorField::new('description', 'Description')->onlyOnIndex(),
             AssociationField::new('tags', 'Tags'),
-            TextField::new('image')
+            TextField::new('image', 'Image')
                 ->setLabel(false)
                 ->setRequired(true)
                 ->setFormType(ImagesFormType::class)
                 ->onlyOnForms(),
-            ImageField::new('image')
+            ImageField::new('image', 'Image')
                 ->setBasePath('/uploads/images/')
                 ->onlyOnIndex(),
         ];

@@ -44,7 +44,7 @@ class LessonCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('title', 'Titre'),
             AssociationField::new('section')
                 ->setRequired(true),
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
@@ -63,8 +63,8 @@ class LessonCrudController extends AbstractCrudController
                 ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
-            TextareaField::new('explanation')->onlyOnForms(),
-            TextEditorField::new('explanation')->onlyOnIndex(),
+            TextareaField::new('explanation', 'Description')->onlyOnForms(),
+            TextEditorField::new('explanation', 'Descrption')->onlyOnIndex(),
         ];
     }
 

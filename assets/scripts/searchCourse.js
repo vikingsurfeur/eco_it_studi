@@ -28,7 +28,7 @@ divError.attributes = {
 };
 divError.innerHTML = `<strong>Désolé, une erreur est survenue...</strong>`;
 
-// Fetching course async function
+// Fetching course
 const fetchCourseRequest = async (url) => {
     const formData = new FormData(searchForm);
 

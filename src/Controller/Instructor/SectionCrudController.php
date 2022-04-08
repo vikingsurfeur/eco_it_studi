@@ -53,12 +53,12 @@ class SectionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('title', 'Titre'),
             DateField::new('createdAt', 'Créé le')->hideOnForm(),
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
-            AssociationField::new('course'),
-            AssociationField::new('lessons'),
+            AssociationField::new('course', 'Cours'),
+            AssociationField::new('lessons', 'Lessons'),
         ];
     }
 

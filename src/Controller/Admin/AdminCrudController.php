@@ -53,7 +53,7 @@ class AdminCrudController extends AbstractCrudController
             TextField::new('lastname', 'Nom'),
             ArrayField::new('roles', 'Roles'),
             BooleanField::new('isAccepted', 'Accepté'),
-            TextEditorField::new('description'),
+            TextEditorField::new('description', 'Description'),
         ];
     }
 

@@ -10,9 +10,21 @@
 		<section class="container mb-4">
 			<div class="row px-5">
 				<div class="col-12">
-					<h1 class="d-flex justify-content-center align-items-center fw-bold h2 mb-4 course__one__container__title">
-						<span class="badge bg-danger me-4">Cours</span>
+					<h1 class="d-flex flex-column justify-content-center align-items-center fw-bold h2 mb-4 course__one__container__title">
 						{{ course.title }}
+						{% if userProgress %}
+							{% if userProgress.courseFinished %}
+								<div class="d-flex mt-2">
+									<span class="badge bg-secondary">Cours</span>
+									<span class="badge bg-success ms-2">Terminée</span>
+								</div>
+							{% else %}
+								<div class="d-flex mt-2">
+									<span class="badge bg-secondary">Cours</span>
+									<span class="badge bg-danger ms-2">En apprentissage</span>
+								</div>
+							{% endif %}
+						{% endif %}
 					</h1>
 				</div>
 				<div class="col-12 course__one__container__description">
@@ -29,6 +41,7 @@
 				<img src="{{ course.image|getPathImage }}" alt="img-fluid" width="200">
 			</div>
 		</div>
+		<!-- ENROLLED ? -->
 		{% if isEnrolled %}
 			<section class="container">
 				<div class="row px-5">
@@ -60,10 +73,10 @@
 			<section class="container mb-4">
 				<div class="row px-5">
 					<div class="col-12 mb-4 text-center">
-					<!-- User Subscriber Form -->
+					<!-- USER SUBSCRIBER FORM -->
 						{{ form_start(user_subscriber_course_form, {'attr': {
 							'id': 'userSubscriberCourseForm',
-							'action': path('app_course_show_slug', {'slug': course.slug}),
+							'action': path('app_course_subscribe', {'slug': course.slug}),
 							}})
 						}}
 							{{ form_widget(user_subscriber_course_form.course_id, {
@@ -95,4 +108,5 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('userSubscriberCourse') }}
+	{{ encore_entry_script_tags('lessonFinisherCheck') }}
 {% endblock %}

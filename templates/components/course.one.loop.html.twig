@@ -1,7 +1,17 @@
 {% for section in sections %}
-	<h2 class="d-flex justify-content-center align-items-center my-5 course__one__container__title">
-		<span class="badge bg-secondary me-4">Section</span>
+	<h2 class="d-flex flex-column justify-content-center align-items-center my-5 course__one__container__title">
 		{{ section.title }}
+		{% if userProgress.sectionFinished %}
+			<div class="d-flex mt-2">
+				<span class="badge bg-secondary">Section</span>
+				<span class="badge bg-success ms-2">Terminée</span>
+			</div>
+		{% else %}
+			<div class="d-flex mt-2">
+				<span class="badge bg-secondary">Section</span>
+				<span class="badge bg-danger ms-2">En apprentissage</span>
+			</div>
+		{% endif %}
 	</h2>
 	{% if lessons %}
 		{% for lesson in lessons %}
@@ -92,6 +102,30 @@
 											<div class="row px-5 my-5">
 												<div class="col-12">
 													<h5>Cette lesson est-elle terminée ?</h5>
+													{% if lessonValues.isFinished %}
+														<label for="isFinished">
+															<input 
+																type="checkbox"
+																id="isFinished" 
+																name="isFinished{{ lessonValues.id }}" 
+																value={{ lessonValues.id }} 
+																disabled 
+																checked
+															>
+															Lesson terminée
+														</label>
+													{% else %}
+														<label for="isFinished">
+															<input 
+																type="checkbox" 
+																id="isFinished" 
+																name="isFinished{{ lessonValues.id }}" 
+																value={{ lessonValues.id }}
+															>
+															Vous avez terminé cette lesson ? Cochez la case
+														</label>
+													{% endif %}
+													<p id="isFinishedMessage{{ lessonValues.id }}"></p>
 												</div>
 												<div class="col-12">
 												</div>

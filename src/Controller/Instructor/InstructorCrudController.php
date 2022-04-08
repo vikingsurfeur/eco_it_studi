@@ -52,7 +52,7 @@ class InstructorCrudController extends AbstractCrudController
             TextField::new('profilePhoto', 'Photo de profil')
                 ->setFormType(ImagesFormType::class)
                 ->onlyOnForms(),
-            TextEditorField::new('description'),
+            TextEditorField::new('description', 'A propos de moi'),
         ];
     }
 
