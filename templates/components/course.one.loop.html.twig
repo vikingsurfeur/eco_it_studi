@@ -94,19 +94,6 @@
 													<h5>Cette lesson est-elle terminée ?</h5>
 												</div>
 												<div class="col-12">
-													<h6>
-														{% if lessonValues.isFinished == true %}
-															<label for="isFinished">
-																<input type="checkbox" value="{{ lessonValues.id }}" checked disabled>
-																Félicitations, vous avez terminé cette lesson !
-															</label>
-														{% else %}
-															<label for="isFinished">
-																<input type="checkbox" id="isFinished" name="isFinished" value="{{ lessonValues.id }}">
-																Cochez cette case si cette lesson est terminée
-															</label>
-														{% endif %}
-													</h6>
 												</div>
 											</div>
 										</div>

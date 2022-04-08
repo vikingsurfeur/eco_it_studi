@@ -47,11 +47,18 @@ class Course
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'learnersCourses')]
     private $learners;
 
+    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'courses')]
+    private $progress;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isFinished = false;
+
     public function __construct()
     {
         $this->sections = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->learners = new ArrayCollection();
+        $this->progress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,5 +231,44 @@ class Course
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, Progress>
+     */
+    public function getProgress(): Collection
+    {
+        return $this->progress;
+    }
+
+    public function addProgress(Progress $progress): self
+    {
+        if (!$this->progress->contains($progress)) {
+            $this->progress[] = $progress;
+            $progress->addCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgress(Progress $progress): self
+    {
+        if ($this->progress->removeElement($progress)) {
+            $progress->removeCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function getIsFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
     }
 }

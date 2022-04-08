@@ -47,10 +47,17 @@ class Lesson
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
+    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'lessons')]
+    private $progress;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isFinished = false;
+
     public function __construct()
     {
         $this->imagesLesson = new ArrayCollection();
         $this->documentsLesson = new ArrayCollection();
+        $this->progress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,5 +232,44 @@ class Lesson
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, Progress>
+     */
+    public function getProgress(): Collection
+    {
+        return $this->progress;
+    }
+
+    public function addProgress(Progress $progress): self
+    {
+        if (!$this->progress->contains($progress)) {
+            $this->progress[] = $progress;
+            $progress->addLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgress(Progress $progress): self
+    {
+        if ($this->progress->removeElement($progress)) {
+            $progress->removeLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function getIsFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
     }
 }

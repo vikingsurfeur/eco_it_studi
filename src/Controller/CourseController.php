@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Progress;
 use App\Form\UserSubscriberCourseType;
 use App\Repository\CourseRepository;
 use App\Repository\LessonRepository;
+use App\Repository\ProgressRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
@@ -43,6 +45,7 @@ class CourseController extends BaseController
     #[Route('/course/{slug}', name: 'app_course_show_slug')]
     public function showOne(
         CourseRepository $courseRepository,
+        ProgressRepository $progressRepository,
         Request $request, 
         string $slug
     ): Response
@@ -55,7 +58,7 @@ class CourseController extends BaseController
         $userSubscriberCourseForm = $this->createForm(UserSubscriberCourseType::class);
         $userSubscriberCourseForm->handleRequest($request);
 
-        // Form Action
+        // Form action user subscription
         if ($userSubscriberCourseForm->isSubmitted() && $userSubscriberCourseForm->isValid()) {
             $userSubscriberCourseFormData = $userSubscriberCourseForm->getData();
 
@@ -64,6 +67,35 @@ class CourseController extends BaseController
                 $userSubscriberCourseFormData['user_id'],
                 $userSubscriberCourseFormData['course_id']
             );
+            
+            // Set the progress of the user
+            // First step, find all sections / lessons of the course
+            $course = $courseRepository->findOneBy(['slug' => $slug]);
+            $sections = $course->getSections();
+            if (!empty($sections)) {
+                foreach ($sections as $section) {
+                    $lessons = $section->getLessons();
+                }
+            }
+
+            // Second step, create a progress for the user for this course
+            $progress = new Progress();
+            $progress->addUser($this->getUser());
+            $progress->addCourse($course);
+            foreach ($sections as $section) {
+                $progress->addSection($section);
+            };
+            foreach ($lessons as $lesson) {
+                $progress->addLesson($lesson);
+            };
+
+            // Third step, set all the properties of the progress to false
+            $progress->setCourseFinished(false);
+            $progress->setSectionFinished(false);
+            $progress->setLessonFinished(false);
+
+            // Save the progress
+            $progressRepository->add($progress);
 
             // Return JSON response
             return $this->json([
@@ -73,6 +105,9 @@ class CourseController extends BaseController
                 ',
             ]);
         }
+
+        // Retrieve the progress of the user
+        $userProgress = $this->getUser()->getProgress();
 
         // Retrieve the course from the database
         $course = $courseRepository->findBy(['slug' => $slug]);
@@ -102,6 +137,7 @@ class CourseController extends BaseController
                 'course' => $course[0],
                 'sections' => null,
                 'lessons' => null,
+                'userProgress' => $userProgress,
                 'isEnrolled' => $isEnrolled,
                 'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
             ]);
@@ -125,6 +161,7 @@ class CourseController extends BaseController
                 'sections' => $sectionsValues,
                 'lessons' => $lessonsValues,
                 'isEnrolled' => $isEnrolled,
+                'userProgress' => $userProgress,
                 'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
             ]);
         }
