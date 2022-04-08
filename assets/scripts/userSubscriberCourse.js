@@ -23,14 +23,6 @@ const fetchUserSubscriberCourse = async (url) => {
                 "alert",
                 "alert-success"
             );
-        } else {
-            const { message } = responseData;
-
-            userSubscriberCourseFormMessage.innerHTML = message;
-            userSubscriberCourseFormMessage.classList.add(
-                "alert",
-                "alert-danger"
-            );
         }
     } catch (error) {
         userSubscriberCourseFormMessage.innerHTML = "Désolé, une erreur est survenue";
