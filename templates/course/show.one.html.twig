@@ -59,18 +59,18 @@
 			</section>
 			<section class="container mb-4">
 				<div class="row px-5">
-					<div class="col-12 text-center">
+					<div class="col-12 mb-4 text-center">
 					<!-- User Subscriber Form -->
 						{{ form_start(user_subscriber_course_form, {'attr': {
 							'id': 'userSubscriberCourseForm',
 							'action': path('app_course_show_slug', {'slug': course.slug}),
 							}})
 						}}
-						{{ form_widget(user_subscriber_course_form.course_id, {
-							'value': course.id ,
-							'id': 'userSubscriberCourseFormCourseId',
-							}) 
-						}}
+							{{ form_widget(user_subscriber_course_form.course_id, {
+								'value': course.id ,
+								'id': 'userSubscriberCourseFormCourseId',
+								}) 
+							}}
 						{{ form_widget(user_subscriber_course_form.user_id, {
 							'value': app.user.id,
 							'id': 'userSubscriberCourseFormUserId',
@@ -84,8 +84,15 @@
 						</button>
 						{{ form_end(user_subscriber_course_form) }}
 					</div>
+					<div class="col-12" id="userSubscriberCourseFormMessage">
+					</div>
 				</div>
 			</section>
 		{% endif %}
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('userSubscriberCourse') }}
 {% endblock %}

@@ -25,7 +25,6 @@ class SearchController extends AbstractController
 
         $searchCourseForm = $this->createForm(SearchCourseType::class);
         $searchCourseForm->handleRequest($request);
-        $courses = [];
 
         if($searchCourseForm->isSubmitted() && $searchCourseForm->isValid()) {
             $search = $searchCourseForm->get('search')->getData();

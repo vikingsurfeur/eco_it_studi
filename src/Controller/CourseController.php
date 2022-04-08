@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserSubscriberCourseType;
 use App\Repository\CourseRepository;
+use App\Repository\LessonRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CourseController extends BaseController
 {
+    // COURSES LIST
     #[Route('/course', name: 'app_course')]
     public function index(
         CourseRepository $courseRepository,
@@ -37,6 +39,7 @@ class CourseController extends BaseController
         ]);
     }
 
+    // COURSES DETAILS + SUBSCRIBE
     #[Route('/course/{slug}', name: 'app_course_show_slug')]
     public function showOne(
         CourseRepository $courseRepository,
@@ -55,12 +58,20 @@ class CourseController extends BaseController
         // Form Action
         if ($userSubscriberCourseForm->isSubmitted() && $userSubscriberCourseForm->isValid()) {
             $userSubscriberCourseFormData = $userSubscriberCourseForm->getData();
-            
+
             // Add the user 'learner' to the course
             $courseRepository->addLearnerToCourse(
                 $userSubscriberCourseFormData['user_id'],
                 $userSubscriberCourseFormData['course_id']
             );
+
+            // Return JSON response
+            return $this->json([
+                'status' => 'success',
+                'message' => 'Félicitations, vous êtes maintenant inscrit à ce cours.
+                    Rendez-vous sur la page "Mes cours" pour commencer à apprendre.
+                ',
+            ]);
         }
 
         // Retrieve the course from the database
@@ -116,6 +127,19 @@ class CourseController extends BaseController
                 'isEnrolled' => $isEnrolled,
                 'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
             ]);
+        }
+    }
+
+    public function isFinishedLesson(
+        LessonRepository $lessonRepository,
+        Request $request,
+        $id)
+    {
+        if ($request->getMethod() === 'POST') {
+            // First find the 
+            $user = $this->getUser();
+            $lesson = $lessonRepository->find($id);
+            $lessonLearner = $lesson->getLearners()->getValues();
         }
     }
 }

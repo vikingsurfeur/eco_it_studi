@@ -19,8 +19,8 @@
                         'action': path('app_search'),    
                     }}) 
                 }}
-                {{ form_label(search_form.search, 'Rechercher un cours') }}
-                {{ form_widget(search_form.search, {'id': 'searchInput'} ) }}
+                    {{ form_label(search_form.search, 'Rechercher un cours') }}
+                    {{ form_widget(search_form.search, {'id': 'searchInput'} ) }}
                 <button type="submit" class="btn btn-primary text-white mt-4">
                     Rechercher
                     <i class="fas fa-search"></i>    

@@ -2,12 +2,40 @@
 
 {% block body %}
     <div class="container-fluid g-0 user__course__container">
-        <div class="row px-5">
-            <div class="col-12">
-                <h1 class="d-flex justify-content-center align-items-center fw-bold h2 mb-4 user__course__container__title">
-                    Mes cours
-                </h1>
+        <section class="container">
+            <div class="row px-5">
+                <div class="col-12">
+                    <h1 class="text-center fw-bold h2 mb-4 user__course__container__title">
+                        Mes cours
+                    </h1>
+                    <h5 class="text-center">
+                        Retrouvez ici tous les cours auquels vous vous êtes inscrit.
+                    </h5>
+                </div>
             </div>
-        </div>
+        </section>
+        <section class="container">
+            {% if courses %}
+                <div class="row px-5">
+                    {% include 'components/course.loop.html.twig' %}
+                </div>
+            {% else %}
+                <div class="row px-5">
+                    <div class="col-12">
+                        <div class="alert alert-warning">
+                            <h5 class="text-center">
+                                Vous n'avez souscris à aucun cours.
+                                N'hésitez pas à souscrire à un cours en cliquant sur le bouton ci-dessous.
+                            </h5>
+                            <div class="text-center">
+                                <a href="{{ path('app_course') }}" class="btn btn-primary text-white mt-2">
+                                    Liste des cours
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
     </div>
 {% endblock %}

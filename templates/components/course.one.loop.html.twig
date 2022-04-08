@@ -31,6 +31,7 @@
 										data-bs-parent="#{{ lessonValues.title|replace({' ': ''}) }}"
 									>
 										<div class="accordion-body">
+											<!-- EXPLANATION / VIDEO -->
 											<div class="row px-5 my-5">
 												<div class="col-12 col-lg-6">
 													<h5>Descriptif de la lesson :</h5>
@@ -53,6 +54,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- DOC DOWNLOAD -->
 											<div class="row px-5 my-5">
 												<div class="col-12">
 													<h5>Documents disponibles au téléchargement</h5>
@@ -84,6 +86,27 @@
 															{% endif %}
 														{% endfor %}
 													</ul>
+												</div>
+											</div>
+											<!-- IS FINISHED -->
+											<div class="row px-5 my-5">
+												<div class="col-12">
+													<h5>Cette lesson est-elle terminée ?</h5>
+												</div>
+												<div class="col-12">
+													<h6>
+														{% if lessonValues.isFinished == true %}
+															<label for="isFinished">
+																<input type="checkbox" value="{{ lessonValues.id }}" checked disabled>
+																Félicitations, vous avez terminé cette lesson !
+															</label>
+														{% else %}
+															<label for="isFinished">
+																<input type="checkbox" id="isFinished" name="isFinished" value="{{ lessonValues.id }}">
+																Cochez cette case si cette lesson est terminée
+															</label>
+														{% endif %}
+													</h6>
 												</div>
 											</div>
 										</div>
