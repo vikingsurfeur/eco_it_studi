@@ -51,9 +51,13 @@ class CourseCrudController extends AbstractCrudController
                 ->hideOnIndex(),
             TextareaField::new('description', 'Description')->onlyOnForms(),
             TextEditorField::new('description', 'Description')->onlyOnIndex(),
-            AssociationField::new('tags', 'Tags'),
-            TextField::new('image', 'Image')
-                ->setLabel(false)
+            AssociationField::new('tags', 'Tags')
+                ->setQueryBuilder(
+                    fn (QueryBuilder $queryBuilder) => $queryBuilder
+                        ->andWhere('entity.user = :user')
+                        ->setParameter('user', $this->getUser())
+                ),
+            TextField::new('image', 'Image du cours')
                 ->setRequired(true)
                 ->setFormType(ImagesFormType::class)
                 ->onlyOnForms(),

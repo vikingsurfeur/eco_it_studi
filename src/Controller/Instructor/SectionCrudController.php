@@ -57,8 +57,18 @@ class SectionCrudController extends AbstractCrudController
             DateField::new('createdAt', 'Créé le')->hideOnForm(),
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
             SlugField::new('slug')->setTargetFieldName('title')->hideOnIndex(),
-            AssociationField::new('course', 'Cours'),
-            AssociationField::new('lessons', 'Lessons'),
+            AssociationField::new('course', 'Cours')
+                ->setQueryBuilder(
+                    fn (QueryBuilder $queryBuilder) => $queryBuilder
+                        ->andWhere('entity.user = :user')
+                        ->setParameter('user', $this->getUser())
+                    ),
+            AssociationField::new('lessons', 'Lessons')
+                ->setQueryBuilder(
+                    fn (QueryBuilder $queryBuilder) => $queryBuilder
+                        ->andWhere('entity.user = :user')
+                        ->setParameter('user', $this->getUser())
+                    ),
         ];
     }
 

@@ -46,7 +46,12 @@ class LessonCrudController extends AbstractCrudController
         return [
             TextField::new('title', 'Titre'),
             AssociationField::new('section')
-                ->setRequired(true),
+                ->setRequired(true)
+                ->setQueryBuilder(
+                    fn (QueryBuilder $queryBuilder) => $queryBuilder
+                        ->andWhere('entity.user = :user')
+                        ->setParameter('user', $this->getUser())
+                ),
             DateField::new('updatedAt', 'Modifié le')->hideOnForm(),
             DateField::new('createdAt', 'Créé le')->hideOnForm(),
             TextField::new('video')

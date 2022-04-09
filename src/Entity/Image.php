@@ -4,13 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
-class Image
+class Image implements Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -46,7 +47,7 @@ class Image
     private $createdAt;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
+    private $updatedAt = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
@@ -168,6 +169,34 @@ class Image
         return $this;
     }
 
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->name,
+            $this->file,
+            $this->createdAt,
+            $this->updatedAt,
+            $this->user,
+            $this->course,
+            $this->lesson,
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->name,
+            $this->file,
+            $this->createdAt,
+            $this->updatedAt,
+            $this->user,
+            $this->course,
+            $this->lesson,
+        ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+    
     public function __toString()
     {
         return $this->file;
