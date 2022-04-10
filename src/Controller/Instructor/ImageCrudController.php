@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
+// THIS CRUD IS NOT USED
 class ImageCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

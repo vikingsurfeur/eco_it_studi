@@ -68,8 +68,8 @@ class InstructorCrudController extends AbstractCrudController
                 ->setBasePath('/uploads/images/')
                 ->onlyOnIndex(),
             TextField::new('profilePhoto', 'Photo de profil')
-                ->setFormType(ImagesFormType::class)
-                ->onlyOnForms(),
+            ->setFormType(ImagesFormType::class)
+            ->onlyOnForms(),
             TextEditorField::new('description', 'A propos de moi')->onlyOnIndex(),
             TextareaField::new('description', 'A propos de moi')->onlyOnForms(),
         ];

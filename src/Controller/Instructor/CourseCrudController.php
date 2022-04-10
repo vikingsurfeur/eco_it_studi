@@ -4,6 +4,7 @@ namespace App\Controller\Instructor;
 
 use App\Entity\Course;
 use App\Form\ImagesFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -58,9 +59,15 @@ class CourseCrudController extends AbstractCrudController
                         ->setParameter('user', $this->getUser())
                 ),
             TextField::new('image', 'Image du cours')
-                ->setRequired(true)
                 ->setFormType(ImagesFormType::class)
-                ->onlyOnForms(),
+                ->setRequired(true)
+                ->onlyOnForms()
+                ->onlyWhenCreating(),
+            TextField::new('image', 'Image du cours')
+                ->setFormType(ImagesFormType::class)
+                ->setRequired(false)
+                ->onlyOnForms()
+                ->onlyWhenUpdating(),
             ImageField::new('image', 'Image')
                 ->setBasePath('/uploads/images/')
                 ->onlyOnIndex(),

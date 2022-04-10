@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+// THIS CRUD IS NOT USED
 class DocumentCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
