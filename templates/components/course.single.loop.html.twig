@@ -1,7 +1,7 @@
 {% for section in sections %}
 	<h2 class="d-flex flex-column justify-content-center align-items-center my-5 course__one__container__title">
 		{{ section.title }}
-		{% if userProgress.sectionFinished %}
+		{% if section.id == sectionsProgressStates[loop.index0].section.id and sectionsProgressStates[loop.index0].state %}
 			<div class="d-flex mt-2">
 				<span class="badge bg-secondary">Section</span>
 				<span class="badge bg-success ms-2">Terminée</span>
@@ -29,7 +29,7 @@
 										aria-expanded="true" 
 										aria-controls="{{ lessonValues.title|replace({' ': ''}) }}{{ lessonValues.id }}"
 									>
-										{% if lessonValues.isFinished %}
+										{% if lessonValues.id == lessonsProgressStates[loop.index0].lesson.id and lessonsProgressStates[loop.index0].state %}
 											<span class="badge bg-success me-2">Terminée</span>
 										{% else %}
 											<span class="badge bg-danger me-2">En apprentissage</span>
@@ -106,7 +106,7 @@
 										<div class="row px-5 my-5">
 											<div class="col-12">
 												<h5>Cette lesson est-elle terminée ?</h5>
-												{% if lessonValues.isFinished %}
+												{% if lessonsProgressStates[loop.index0].state %}
 													<label for="isFinished">
 														<input 
 															type="checkbox"

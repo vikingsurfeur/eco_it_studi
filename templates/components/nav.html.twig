@@ -56,7 +56,7 @@
 				<li class="nav-item">
 					{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 						<div class="d-flex flex-column flex-lg-row">
-							<a class="nav-link" href="{{ path('app_user_course') }}">Mes cours</a>
+							<a class="nav-link {{ actual_route('app_user_course', route) }}" href="{{ path('app_user_course') }}">Mes cours</a>
 							<p class="nav-link mb-0">Connecté en tant que
 								{{ app.user.firstname }}
 							</p>

@@ -12,8 +12,8 @@
 				<div class="col-12">
 					<h1 class="d-flex flex-column justify-content-center align-items-center fw-bold h2 mb-4 course__one__container__title">
 						{{ course.title }}
-						{% if userProgress %}
-							{% if userProgress.courseFinished %}
+						{% if courseProgressState %}
+							{% if courseProgressState.state %}
 								<div class="d-flex mt-2">
 									<span class="badge bg-secondary">Cours</span>
 									<span class="badge bg-success ms-2">Terminée</span>

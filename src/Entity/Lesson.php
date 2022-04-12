@@ -50,14 +50,15 @@ class Lesson
     #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'lessons')]
     private $progress;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isFinished = false;
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonProgressState::class)]
+    private $lessonProgressStates;
 
     public function __construct()
     {
         $this->imagesLesson = new ArrayCollection();
         $this->documentsLesson = new ArrayCollection();
         $this->progress = new ArrayCollection();
+        $this->lessonProgressStates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,14 +262,32 @@ class Lesson
         return $this;
     }
 
-    public function getIsFinished(): ?bool
+    /**
+     * @return Collection<int, LessonProgressState>
+     */
+    public function getLessonProgressStates(): Collection
     {
-        return $this->isFinished;
+        return $this->lessonProgressStates;
     }
 
-    public function setIsFinished(bool $isFinished): self
+    public function addLessonProgressState(LessonProgressState $lessonProgressState): self
     {
-        $this->isFinished = $isFinished;
+        if (!$this->lessonProgressStates->contains($lessonProgressState)) {
+            $this->lessonProgressStates[] = $lessonProgressState;
+            $lessonProgressState->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonProgressState(LessonProgressState $lessonProgressState): self
+    {
+        if ($this->lessonProgressStates->removeElement($lessonProgressState)) {
+            // set the owning side to null (unless already changed)
+            if ($lessonProgressState->getLesson() === $this) {
+                $lessonProgressState->setLesson(null);
+            }
+        }
 
         return $this;
     }

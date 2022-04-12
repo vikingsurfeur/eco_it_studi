@@ -77,6 +77,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'users')]
     private $progress;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CourseProgressState::class)]
+    private $courseProgressStates;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SectionProgressState::class)]
+    private $sectionProgressStates;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: LessonProgressState::class)]
+    private $lessonProgressStates;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -87,6 +96,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tags = new ArrayCollection();
         $this->learnersCourses = new ArrayCollection();
         $this->progress = new ArrayCollection();
+        $this->courseProgressStates = new ArrayCollection();
+        $this->sectionProgressStates = new ArrayCollection();
+        $this->lessonProgressStates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -502,6 +514,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->progress->removeElement($progress)) {
             $progress->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CourseProgressState>
+     */
+    public function getCourseProgressStates(): Collection
+    {
+        return $this->courseProgressStates;
+    }
+
+    public function addCourseProgressState(CourseProgressState $courseProgressState): self
+    {
+        if (!$this->courseProgressStates->contains($courseProgressState)) {
+            $this->courseProgressStates[] = $courseProgressState;
+            $courseProgressState->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseProgressState(CourseProgressState $courseProgressState): self
+    {
+        if ($this->courseProgressStates->removeElement($courseProgressState)) {
+            // set the owning side to null (unless already changed)
+            if ($courseProgressState->getUser() === $this) {
+                $courseProgressState->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SectionProgressState>
+     */
+    public function getSectionProgressStates(): Collection
+    {
+        return $this->sectionProgressStates;
+    }
+
+    public function addSectionProgressState(SectionProgressState $sectionProgressState): self
+    {
+        if (!$this->sectionProgressStates->contains($sectionProgressState)) {
+            $this->sectionProgressStates[] = $sectionProgressState;
+            $sectionProgressState->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSectionProgressState(SectionProgressState $sectionProgressState): self
+    {
+        if ($this->sectionProgressStates->removeElement($sectionProgressState)) {
+            // set the owning side to null (unless already changed)
+            if ($sectionProgressState->getUser() === $this) {
+                $sectionProgressState->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LessonProgressState>
+     */
+    public function getLessonProgressStates(): Collection
+    {
+        return $this->lessonProgressStates;
+    }
+
+    public function addLessonProgressState(LessonProgressState $lessonProgressState): self
+    {
+        if (!$this->lessonProgressStates->contains($lessonProgressState)) {
+            $this->lessonProgressStates[] = $lessonProgressState;
+            $lessonProgressState->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonProgressState(LessonProgressState $lessonProgressState): self
+    {
+        if ($this->lessonProgressStates->removeElement($lessonProgressState)) {
+            // set the owning side to null (unless already changed)
+            if ($lessonProgressState->getUser() === $this) {
+                $lessonProgressState->setUser(null);
+            }
         }
 
         return $this;

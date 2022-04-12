@@ -3,7 +3,6 @@
 namespace App\Controller\User;
 
 use App\Controller\BaseController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
