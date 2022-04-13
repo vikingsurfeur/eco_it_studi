@@ -6,6 +6,16 @@
 				<span class="badge bg-secondary">Section</span>
 				<span class="badge bg-success ms-2">Terminée</span>
 			</div>
+			<div class="d-flex flex-column justify-content-center align-items-center mt-5">
+				<h5>Bravo, vous avez terminé cette section</h5>
+				<h5>Testez vos connaissances en répondant au Quiz</h5>
+				<a 
+					href="{{ path('app_quiz_section', {'id': section.id}) }}" 
+					class="btn btn-lg btn-secondary fw-bold text-white"
+				>
+					! Quiz !
+				</a>
+			</div>
 		{% else %}
 			<div class="d-flex mt-2">
 				<span class="badge bg-secondary">Section</span>
