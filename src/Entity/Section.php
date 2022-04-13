@@ -38,16 +38,12 @@ class Section
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $user;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'sections')]
-    private $progress;
-
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: SectionProgressState::class)]
     private $sectionProgressStates;
 
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
-        $this->progress = new ArrayCollection();
         $this->sectionProgressStates = new ArrayCollection();
     }
 
@@ -161,33 +157,6 @@ class Section
     public function __toString()
     {
         return $this->title;
-    }
-
-    /**
-     * @return Collection<int, Progress>
-     */
-    public function getProgress(): Collection
-    {
-        return $this->progress;
-    }
-
-    public function addProgress(Progress $progress): self
-    {
-        if (!$this->progress->contains($progress)) {
-            $this->progress[] = $progress;
-            $progress->addSection($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgress(Progress $progress): self
-    {
-        if ($this->progress->removeElement($progress)) {
-            $progress->removeSection($this);
-        }
-
-        return $this;
     }
 
     /**

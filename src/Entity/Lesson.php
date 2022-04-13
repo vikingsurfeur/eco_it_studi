@@ -47,9 +47,6 @@ class Lesson
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'lessons')]
-    private $progress;
-
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonProgressState::class)]
     private $lessonProgressStates;
 
@@ -57,7 +54,6 @@ class Lesson
     {
         $this->imagesLesson = new ArrayCollection();
         $this->documentsLesson = new ArrayCollection();
-        $this->progress = new ArrayCollection();
         $this->lessonProgressStates = new ArrayCollection();
     }
 
@@ -233,33 +229,6 @@ class Lesson
     public function __toString()
     {
         return $this->title;
-    }
-
-    /**
-     * @return Collection<int, Progress>
-     */
-    public function getProgress(): Collection
-    {
-        return $this->progress;
-    }
-
-    public function addProgress(Progress $progress): self
-    {
-        if (!$this->progress->contains($progress)) {
-            $this->progress[] = $progress;
-            $progress->addLesson($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgress(Progress $progress): self
-    {
-        if ($this->progress->removeElement($progress)) {
-            $progress->removeLesson($this);
-        }
-
-        return $this;
     }
 
     /**

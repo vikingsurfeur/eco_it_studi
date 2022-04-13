@@ -47,19 +47,19 @@ class Course
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'learnersCourses')]
     private $learners;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'courses')]
-    private $progress;
-
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: CourseProgressState::class)]
     private $courseProgressStates;
+
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: UserProgressState::class)]
+    private $userProgressStates;
 
     public function __construct()
     {
         $this->sections = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->learners = new ArrayCollection();
-        $this->progress = new ArrayCollection();
         $this->courseProgressStates = new ArrayCollection();
+        $this->userProgressStates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,33 +235,6 @@ class Course
     }
 
     /**
-     * @return Collection<int, Progress>
-     */
-    public function getProgress(): Collection
-    {
-        return $this->progress;
-    }
-
-    public function addProgress(Progress $progress): self
-    {
-        if (!$this->progress->contains($progress)) {
-            $this->progress[] = $progress;
-            $progress->addCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgress(Progress $progress): self
-    {
-        if ($this->progress->removeElement($progress)) {
-            $progress->removeCourse($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, CourseProgressState>
      */
     public function getCourseProgressStates(): Collection
@@ -285,6 +258,36 @@ class Course
             // set the owning side to null (unless already changed)
             if ($courseProgressState->getCourse() === $this) {
                 $courseProgressState->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserProgressState>
+     */
+    public function getUserProgressStates(): Collection
+    {
+        return $this->userProgressStates;
+    }
+
+    public function addUserProgressState(UserProgressState $userProgressState): self
+    {
+        if (!$this->userProgressStates->contains($userProgressState)) {
+            $this->userProgressStates[] = $userProgressState;
+            $userProgressState->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProgressState(UserProgressState $userProgressState): self
+    {
+        if ($this->userProgressStates->removeElement($userProgressState)) {
+            // set the owning side to null (unless already changed)
+            if ($userProgressState->getCourse() === $this) {
+                $userProgressState->setCourse(null);
             }
         }
 

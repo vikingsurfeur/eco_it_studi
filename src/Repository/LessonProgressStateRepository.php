@@ -46,7 +46,7 @@ class LessonProgressStateRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return LessonProgressState Returns an array of LessonProgressState objects
+     * @return LessonProgressState
      * Search by the id of the lesson and the id of the user
      */
     public function findByLessonAndUser(int $lessonId, int $userId): ?LessonProgressState

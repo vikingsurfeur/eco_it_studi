@@ -46,7 +46,8 @@ class CourseProgressStateRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return CourseProgressState by the id of the course and the id of the user
+     * @return CourseProgressState 
+     * Search by the id of the lesson and the id of the user
      */
     public function findByCourseAndUser(int $courseId, int $userId): ?CourseProgressState
     {

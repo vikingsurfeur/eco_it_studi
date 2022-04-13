@@ -74,9 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'learners')]
     private $learnersCourses;
 
-    #[ORM\ManyToMany(targetEntity: Progress::class, mappedBy: 'users')]
-    private $progress;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: CourseProgressState::class)]
     private $courseProgressStates;
 
@@ -85,6 +82,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: LessonProgressState::class)]
     private $lessonProgressStates;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserProgressState::class)]
+    private $userProgressStates;
 
     public function __construct()
     {
@@ -95,10 +95,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lessons = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->learnersCourses = new ArrayCollection();
-        $this->progress = new ArrayCollection();
         $this->courseProgressStates = new ArrayCollection();
         $this->sectionProgressStates = new ArrayCollection();
         $this->lessonProgressStates = new ArrayCollection();
+        $this->userProgressStates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -493,33 +493,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Progress>
-     */
-    public function getProgress(): Collection
-    {
-        return $this->progress;
-    }
-
-    public function addProgress(Progress $progress): self
-    {
-        if (!$this->progress->contains($progress)) {
-            $this->progress[] = $progress;
-            $progress->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgress(Progress $progress): self
-    {
-        if ($this->progress->removeElement($progress)) {
-            $progress->removeUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, CourseProgressState>
      */
     public function getCourseProgressStates(): Collection
@@ -603,6 +576,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($lessonProgressState->getUser() === $this) {
                 $lessonProgressState->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserProgressState>
+     */
+    public function getUserProgressStates(): Collection
+    {
+        return $this->userProgressStates;
+    }
+
+    public function addUserProgressState(UserProgressState $userProgressState): self
+    {
+        if (!$this->userProgressStates->contains($userProgressState)) {
+            $this->userProgressStates[] = $userProgressState;
+            $userProgressState->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserProgressState(UserProgressState $userProgressState): self
+    {
+        if ($this->userProgressStates->removeElement($userProgressState)) {
+            // set the owning side to null (unless already changed)
+            if ($userProgressState->getUser() === $this) {
+                $userProgressState->setUser(null);
             }
         }
 

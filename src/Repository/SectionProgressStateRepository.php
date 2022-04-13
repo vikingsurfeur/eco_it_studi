@@ -46,7 +46,7 @@ class SectionProgressStateRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return SectionProgressState Returns an array of SectionProgressState objects
+     * @return SectionProgressState
      * Search by the id of the section and the id of the user
      */
     public function findBySectionAndUser(int $sectionId, int $userId): ?SectionProgressState

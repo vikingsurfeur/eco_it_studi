@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Entity\CourseProgressState;
 use App\Entity\LessonProgressState;
-use App\Entity\Progress;
 use App\Entity\SectionProgressState;
+use App\Entity\UserProgressState;
 use App\Form\UserSubscriberCourseType;
 use App\Repository\CourseProgressStateRepository;
 use App\Repository\CourseRepository;
 use App\Repository\LessonProgressStateRepository;
-use App\Repository\LessonRepository;
-use App\Repository\ProgressRepository;
 use App\Repository\SectionProgressStateRepository;
+use App\Repository\UserProgressStateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +58,7 @@ class CourseController extends BaseController
     #[Route('/course/{slug}', name: 'app_course_show_slug')]
     public function showOne(
         CourseRepository $courseRepository,
+        UserProgressStateRepository $userProgressStateRepository,
         CourseProgressStateRepository $courseProgressStateRepository,
         SectionProgressStateRepository $sectionProgressStateRepository,
         LessonProgressStateRepository $lessonProgressStateRepository,
@@ -106,6 +106,11 @@ class CourseController extends BaseController
         } else {
             $isEnrolled = false;
         }
+        // Retrieve the progress of the user
+        $userProgressState = $userProgressStateRepository->findByUserAndCourse(
+            $this->getUser()->getId(), 
+            $course[0]->getId()
+        );
 
         // Retrieve the progress State of the Course by the user
         $courseProgressState = $courseProgressStateRepository->findByCourseAndUser(
@@ -135,30 +140,6 @@ class CourseController extends BaseController
             }
         }
 
-        // Retrieve the progress of the user
-        $userProgress = $this->getUser()->getProgress();
-
-        if (!empty($userProgress)) {
-            $userProgressValues = $userProgress->getValues();
-            $currentCoursesProgress = [];
-            // Find the right user's progress for the current course
-            foreach ($userProgressValues as $userProgressValue) {
-                $currentCoursesProgress[] = $userProgressValue->getCourses();
-            }
-
-            $currentCoursesProgressValues = [];
-            foreach ($currentCoursesProgress as $currentCoursesProgressValue) {
-                $currentCoursesProgressValues[] = $currentCoursesProgressValue->getValues();
-            }
-
-            foreach ($currentCoursesProgressValues as $currentCoursesProgressValue) {
-                if ($currentCoursesProgressValue[0]->getId() === $course[0]->getId()) {
-                    $currentUserProgress = $currentCoursesProgressValue[0];
-                    $currentUserProgressValues = $currentUserProgress->getProgress()->getValues();
-                }
-            }
-        }
-
         return $this->render('course/show.one.html.twig', [
             'course' => $course[0],
             'courseProgressState' => $courseProgressState,
@@ -166,7 +147,7 @@ class CourseController extends BaseController
             'sectionsProgressStates' => $sectionsProgressStates,
             'lessons' => $lessonsValues ?? null,
             'lessonsProgressStates' => $lessonsProgressStates,
-            'userProgress' => $currentUserProgressValues[0] ?? null,
+            'userProgressState' => $userProgressState ?? null,
             'isEnrolled' => $isEnrolled ?? null,
             'user_subscriber_course_form' => $userSubscriberCourseForm->createView(),
         ]);
@@ -176,7 +157,7 @@ class CourseController extends BaseController
     #[Route('/course/{slug}/subscribe', name: 'app_course_subscribe')]
     public function userSubscriberCourse(
         CourseRepository $courseRepository,
-        ProgressRepository $progressRepository,
+        UserProgressStateRepository $userProgressStateRepository,
         CourseProgressStateRepository $courseProgressStateRepository,
         SectionProgressStateRepository $sectionProgressStateRepository,
         LessonProgressStateRepository $lessonProgressStateRepository,
@@ -193,15 +174,14 @@ class CourseController extends BaseController
              // Retrieve data from the form
             $userSubscriberCourseFormData = $userSubscriberCourseForm->getData();
             
-            /***** Set the progress of the user *****/
-            /***** Set the progressStates of Course, Sections and Lessons *****/
+            /***** Set the progressStates of User, Course, Sections and Lessons *****/
             // First step, find all sections / lessons of the course
             $course = $courseRepository->findOneBy(['slug' => $slug]);
             
-            // Second step, create a progress for the user for this course and ProgressStates for each section / lesson and this course
-            $userProgress = new Progress();
-            $userProgress->addUser($this->getUser());
-            $userProgress->addCourse($course);
+            // Second step, create a progressState for user and each section / lesson and this course
+            $userProgressState = new UserProgressState();
+            $userProgressState->setUser($this->getUser());
+            $userProgressState->setCourse($course);
             
             $courseProgressState = new CourseProgressState();
             $courseProgressState->setCourse($course);
@@ -213,7 +193,7 @@ class CourseController extends BaseController
 
             if (!empty($sections)) {
                 foreach ($sections as $section) {
-                    $userProgress->addSection($section);
+                    // $userProgress->addSection($section);
 
                     $lessons[] = $section->getLessons();
 
@@ -235,7 +215,7 @@ class CourseController extends BaseController
 
             foreach ($lessonsValues as $lessonValue) {
                 foreach ($lessonValue as $lesson) {
-                    $userProgress->addLesson($lesson);
+                    // $userProgress->addLesson($lesson);
 
                     $lessonProgressState = new LessonProgressState();
                     $lessonProgressState->setLesson($lesson);
@@ -244,14 +224,9 @@ class CourseController extends BaseController
                 }
             }
             
-            
-            // Third step, set all the properties of the progress and the progressState to false
-            $userProgress->setCourseFinished(false);
-            $userProgress->setSectionFinished(false);
-            $userProgress->setLessonFinished(false);
 
-            // Add the user Progress to the database
-            $progressRepository->add($userProgress);
+            // Add the user ProgressState to the database
+            $userProgressStateRepository->add($userProgressState);
 
             // Add the course ProgressState to the database
             $courseProgressStateRepository->add($courseProgressState);
@@ -294,6 +269,7 @@ class CourseController extends BaseController
         LessonProgressStateRepository $lessonProgressStateRepository,
         SectionProgressStateRepository $sectionProgressStateRepository,
         CourseProgressStateRepository $courseProgressStateRepository,
+        UserProgressStateRepository $userProgressStateRepository,
         Request $request,
         int $lessonId,
     ): Response
@@ -348,6 +324,12 @@ class CourseController extends BaseController
                 $this->getUser()->getId()
             );
 
+            // Retrieve the user progressState of the course
+            $userProgressState = $userProgressStateRepository->findByUserAndCourse(
+                $this->getUser()->getId(),
+                $course->getId()
+            );
+
             $sectionsProgressStates = [];
             foreach ($sections as $section) {
                 $sectionProgressState = $sectionProgressStateRepository->findBySectionAndUser(
@@ -361,6 +343,7 @@ class CourseController extends BaseController
             foreach ($sectionsProgressStates as $sectionProgressState) {
                 if ($sectionProgressState->getState()) {
                     $courseProgressState->setState(true);
+                    $userProgressState->setState(true);
                     $this->entityManager->flush();
                 }
             }
