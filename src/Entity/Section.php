@@ -41,7 +41,8 @@ class Section
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: SectionProgressState::class)]
     private $sectionProgressStates;
 
-    #[ORM\OneToOne(targetEntity: Quiz::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Quiz::class, inversedBy: 'section', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private $quiz;
 
     public function __construct()

@@ -27,7 +27,8 @@ class Quiz
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'quizzes')]
     private $createdBy;
 
-    #[ORM\OneToOne(targetEntity: Section::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Section::class, mappedBy: 'quiz', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     private $section;
 
     #[ORM\ManyToMany(targetEntity: QuizQuestion::class, mappedBy: 'quizs')]
@@ -162,5 +163,10 @@ class Quiz
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

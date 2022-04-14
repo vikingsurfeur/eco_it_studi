@@ -5,6 +5,9 @@ namespace App\Controller\Instructor;
 use App\Controller\BaseEasyAdminController;
 use App\Entity\Course;
 use App\Entity\Lesson;
+use App\Entity\Quiz;
+use App\Entity\QuizAnswerChoice;
+use App\Entity\QuizQuestion;
 use App\Entity\Section;
 use App\Entity\Tag;
 use App\Entity\User;
@@ -50,6 +53,11 @@ class DashboardInstructorController extends BaseEasyAdminController
                 MenuItem::linkToCrud('Mon Profil', 'fas fa-user', User::class)
                     ->setController(InstructorCrudController::class)
                 ,
+
+                MenuItem::section('Mes Quizs'),
+                MenuItem::linkToCrud('Mes Quizs', 'fas fa-search', Quiz::class),
+                MenuItem::linkToCrud('Mes Questions', 'fas fa-question', QuizQuestion::class),
+                MenuItem::linkToCrud('Mes Réponses', 'fas fa-reply', QuizAnswerChoice::class),
 
                 MenuItem::section('Navigation'),
                 MenuItem::linkToRoute('Retour au site', 'fas fa-sign-out-alt', 'app_home'),

@@ -35,7 +35,6 @@ class LessonCreateSubscriber implements EventSubscriberInterface
         if ($entity instanceof Lesson) {
             $entity->setSlug($this->slugger->slug($entity->getTitle()));
             $entity->setCreatedAt(new \DateTime('now'));
-            $entity->setIsFinished(false);
             $entity->setUser($this->security->getUser());
         }
 

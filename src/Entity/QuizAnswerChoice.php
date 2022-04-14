@@ -22,6 +22,9 @@ class QuizAnswerChoice
     #[ORM\ManyToOne(targetEntity: QuizQuestion::class, inversedBy: 'quizAnswerChoices')]
     private $quizQuestions;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'quizAnswerChoices')]
+    private $createdBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class QuizAnswerChoice
     public function setQuizQuestions(?QuizQuestion $quizQuestions): self
     {
         $this->quizQuestions = $quizQuestions;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

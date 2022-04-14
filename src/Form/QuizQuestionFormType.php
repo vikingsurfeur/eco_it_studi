@@ -12,8 +12,8 @@ class QuizQuestionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var QuizAnswerChoice $answers **/
-        $answers = $options['answers'];
+        /** @var QuizAnswerChoice $answers */
+        $answers = $options['quizAnswerChoices'];
 
         $builder
             ->add('selectedAnswer', EntityType::class, [

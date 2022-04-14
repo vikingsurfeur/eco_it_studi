@@ -24,6 +24,9 @@ class QuizQuestion
     #[ORM\OneToMany(mappedBy: 'quizQuestions', targetEntity: QuizAnswerChoice::class)]
     private $quizAnswerChoices;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'quizQuestions')]
+    private $createdBy;
+
     public function __construct()
     {
         $this->quizs = new ArrayCollection();
@@ -99,5 +102,22 @@ class QuizQuestion
         }
 
         return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->questionDescription;
     }
 }
