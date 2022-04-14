@@ -86,6 +86,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserProgressState::class)]
     private $userProgressStates;
 
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Quiz::class)]
+    private $quizzes;
+
+    #[ORM\OneToMany(mappedBy: 'isResolvedBy', targetEntity: UserQuizResult::class)]
+    private $userQuizResults;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -99,6 +105,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sectionProgressStates = new ArrayCollection();
         $this->lessonProgressStates = new ArrayCollection();
         $this->userProgressStates = new ArrayCollection();
+        $this->quizzes = new ArrayCollection();
+        $this->userQuizResults = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -606,6 +614,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userProgressState->getUser() === $this) {
                 $userProgressState->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quiz>
+     */
+    public function getQuizzes(): Collection
+    {
+        return $this->quizzes;
+    }
+
+    public function addQuiz(Quiz $quiz): self
+    {
+        if (!$this->quizzes->contains($quiz)) {
+            $this->quizzes[] = $quiz;
+            $quiz->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuiz(Quiz $quiz): self
+    {
+        if ($this->quizzes->removeElement($quiz)) {
+            // set the owning side to null (unless already changed)
+            if ($quiz->getCreatedBy() === $this) {
+                $quiz->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserQuizResult>
+     */
+    public function getUserQuizResults(): Collection
+    {
+        return $this->userQuizResults;
+    }
+
+    public function addUserQuizResult(UserQuizResult $userQuizResult): self
+    {
+        if (!$this->userQuizResults->contains($userQuizResult)) {
+            $this->userQuizResults[] = $userQuizResult;
+            $userQuizResult->setIsResolvedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserQuizResult(UserQuizResult $userQuizResult): self
+    {
+        if ($this->userQuizResults->removeElement($userQuizResult)) {
+            // set the owning side to null (unless already changed)
+            if ($userQuizResult->getIsResolvedBy() === $this) {
+                $userQuizResult->setIsResolvedBy(null);
             }
         }
 

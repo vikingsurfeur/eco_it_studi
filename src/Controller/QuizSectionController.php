@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuizSectionController extends AbstractController
+class QuizSectionController extends BaseController
 {
     #[Route('/quiz/section/{id}', name: 'app_quiz_section')]
     public function index(): Response

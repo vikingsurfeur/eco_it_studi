@@ -41,6 +41,9 @@ class Section
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: SectionProgressState::class)]
     private $sectionProgressStates;
 
+    #[ORM\OneToOne(targetEntity: Quiz::class, cascade: ['persist', 'remove'])]
+    private $quiz;
+
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
@@ -185,6 +188,18 @@ class Section
                 $sectionProgressState->setSection(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQuiz(): ?Quiz
+    {
+        return $this->quiz;
+    }
+
+    public function setQuiz(?Quiz $quiz): self
+    {
+        $this->quiz = $quiz;
 
         return $this;
     }
