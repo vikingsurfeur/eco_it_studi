@@ -1,7 +1,6 @@
 {% extends '@!EasyAdmin/layout.html.twig' %}
 
 {% block content %}
-
 	{% if app.user.isAccepted %}
 		<div class="jumbotron">
 			<h1 class="display-4">Espace Formateur</h1>
@@ -35,6 +34,10 @@
 							<li class="list-group-item">
 								N'oubliez pas de créer des tags et de les ajouter à vos cours !
 								La recherche de votre contenu sera grandement améliorée !
+							</li>
+							<li class="list-group-item">
+								Nouveauté! Vous pouvez créer des cours des quizs !
+								Vous allez pouvoir torturer vos élèves !
 							</li>
 						</ol>
 					</div>
@@ -71,5 +74,4 @@
 			</button>
 		</div>
 	{% endif %}
-
 {% endblock %}

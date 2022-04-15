@@ -1,9 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    ECO IT | QUIZ
+    ECO IT | {{ quiz.title|upper }}
 {% endblock %}
 
 {% block body %}
-<h1>QUIZ</h1>
+    <div class="container-fluid g-0 quiz__container">
+        <!-- SUBTITLE -->
+        <section class="container quiz__container__subtitle">
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center fw-bold h2">C'est l'heure de souffrir !</h1>
+                    <h4 class="text-center d-flex align-items-center justify-content-center">
+                        <span class="badge bg-primary me-2">QUIZ</span>
+                        {{ quiz.title }}
+                    </h4>
+                    <h5 class="text-center">
+                        Essayez de répondre judicieusement à toutes les questions
+                        et tentez de gagner un voyage en Ukraine !
+                    </h5>
+                </div>
+            </div>
+        </section>
+        <!-- QUESTIONS QUIZ -->
+        <section class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h4>
+                        {{ quiz.title }}
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{ form_start(form_quiz) }}
+                        {{ form_widget(form_quiz) }}
+                    {{ form_end(form_quiz) }}
+                </div>
+            </div>
+        </section>
+    </div>
 {% endblock %}

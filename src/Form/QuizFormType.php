@@ -15,12 +15,11 @@ class QuizFormType extends AbstractType
         $builder
             ->add('quizQuestions', CollectionType::class, [
                 'entry_type' => QuizQuestionFormType::class,
+                'by_reference' => false,
+                'prototype_name' => '__question__',
                 'entry_options' => [
                     'label' => false,
                 ],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
             ])
         ;
     }
