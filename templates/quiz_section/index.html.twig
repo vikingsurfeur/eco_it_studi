@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col">
                     <h1 class="text-center fw-bold h2">C'est l'heure de souffrir !</h1>
-                    <h4 class="text-center d-flex align-items-center justify-content-center">
+                    <h4 class="text-center m-4 d-flex align-items-center justify-content-center">
                         <span class="badge bg-primary me-2">QUIZ</span>
                         {{ quiz.title }}
                     </h4>
@@ -39,16 +39,18 @@
                         }}) 
                     }}
                         {{ form_widget(form_quiz) }}
+                        <!--- SUBMIT -->
                         <button 
                             type="submit" 
-                            class="btn btn-primary text-white"
+                            class="btn btn-lg btn-primary text-white mt-4"
                             id="quizSubmitButton"
                         >
                             Valider
                         </button>
+                        <!--- CORRECTING -->
                         <button
                             type="button"
-                            class="btn btn-secondary text-white ms-4 d-none"
+                            class="btn btn-lg btn-secondary text-white ms-4 mt-4 d-none"
                             id="quizCorrectingButton"
                         >
                             Corriger Moi !

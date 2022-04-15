@@ -1,6 +1,27 @@
 // Quiz page layout
 .quiz__container {
-    margin-top: 150px;
+    padding-top: 150px;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: url('/assets/images/eco_it_magnifying.png');
+        position: absolute;
+        bottom: 0;
+        left: 20vw;
+        width: 10vw;
+        height: auto;
+        filter: opacity(15%);
+        z-index: -1;
+
+        @include for-size(md) {
+            left: 35vw;
+        }
+
+        @include for-size(lg) {
+            left: 50vw;
+        }
+    }
 
     &__subtitle {
         margin-bottom: 2.5rem;

@@ -78,6 +78,7 @@ class QuizSectionController extends BaseController
 
             // Calculate a percentage of good answers about the correctAnswer, the falseAnswer and the number of questions
             $percentage = (($nbQuestions - $falseAnswer) / $nbQuestions) * 100;
+            $percentage < 0 && $percentage = 0;
             
             // Check if the user have already answered this quiz
             $userQuizResult = $userQuizResultRepository->findOneBy(['quiz' => $quizId]);

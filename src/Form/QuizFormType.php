@@ -22,6 +22,9 @@ class QuizFormType extends AbstractType
                     'class' => QuizAnswerChoice::class,
                     'multiple' => true,
                     'expanded' => true,
+                    'attr' => [
+                        'required' => true,
+                    ],
                     'query_builder' => function (EntityRepository $er) use ($quizQuestion) {
                         return $er->createQueryBuilder('q')
                             ->where('q.quizQuestions = :quizQuestion')

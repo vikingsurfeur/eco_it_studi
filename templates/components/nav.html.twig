@@ -1,7 +1,7 @@
 <!-- Define actual route to render the class active or not -->
 {% set route = app.request.attributes.get('_route') %}
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-danger shadow-sm nav__container">
+<nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-danger shadow-sm nav__container">
 	<div class="container-fluid mx-5">
 		<a class="navbar-brand" href={{ path('app_home') }}>
 			<img src="{{ asset('build/images/eco_it_logo.png') }}" width="80px" alt="logo eco-it"/>
