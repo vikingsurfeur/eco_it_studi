@@ -33,11 +33,42 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    {{ form_start(form_quiz) }}
+                    {{ form_start(form_quiz, {'attr': {
+                        'id': 'quizForm',
+                        'data-quiz-id': quiz.id,
+                        }}) 
+                    }}
                         {{ form_widget(form_quiz) }}
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary text-white"
+                            id="quizSubmitButton"
+                        >
+                            Valider
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary text-white ms-4 d-none"
+                            id="quizCorrectingButton"
+                        >
+                            Corriger Moi !
+                        </button>
                     {{ form_end(form_quiz) }}
                 </div>
             </div>
         </section>
+        <!-- RESULT -->
+        <section class="container">
+            <div class="row">
+                <div class="col-12" id="quizResult">
+                    <!-- JS RESULT -->
+                </div>
+            </div>
+        </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('quizSubmitterCheck') }}
 {% endblock %}

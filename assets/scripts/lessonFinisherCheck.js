@@ -33,7 +33,6 @@ const fetchLessonFinisher = async (lessonId, fetchingURL, inputLessonFinisherChe
     try {
         const response = await fetch(fetchingURL, fetchingOptions);
         const responseData = await response.json();
-        console.log(responseData);
 
         if (responseData.status === "success") {
             const { message } = responseData;
