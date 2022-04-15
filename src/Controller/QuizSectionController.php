@@ -27,12 +27,10 @@ class QuizSectionController extends BaseController
         // Retrieve the quiz by his section id
         $quiz = $quizRepository->findOneBy(['section' => $section->getId()]);
 
-        // Retrieve the questions by quiz
-        $questions = $quiz->getQuizQuestions();
-        $questionsValues = $questions->getValues();
-
         // Create the form with this quiz
-        $form = $this->createForm(QuizFormType::class, $quiz);
+        $form = $this->createForm(QuizFormType::class, null, [
+            'quiz' => $quiz,
+        ]);
 
         return $this->render('quiz_section/index.html.twig', [
             'quiz' => $quiz,
