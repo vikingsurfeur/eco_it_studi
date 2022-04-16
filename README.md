@@ -85,12 +85,16 @@ password : tada
 
 ## Ready to Fight !
 
+#### ADMIN ROLE
 <b>Now, you can log in with your admin ID and see your users on the dashboard.</b>  
 Move the accepted boolean field to the first instructor have you seen.
-Now you can log out and log back in with the Instructor account.  
+
+#### INSTRUCTOR ROLE
+Now you can log out and log back in with the Instructor account.
 If you log in with the instructor account without having validated his account, you will see that the dashboard will be blocked pending validation by an admin.   
 So happy? Now that you are logged in as an instructor, you can create your courses, your sections and much more dude!  
-  
+
+#### LEARNER / USER ROLE
 When you are logged in as a learner/user, you will need to register for a course before you can take it.  
 Your courses will be stored on the "Mes Cours" page.  
 Once your lessons are over, check the box and you will be able to see your progress thanks to the badges.  
