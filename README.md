@@ -107,7 +107,7 @@ Once the section is over, a Quiz will be unlocked if it has one.
 - No Quiz form validation yet...
 
 ## Contact Me
-If you are interested in working with me on open source projects, I'm up for it! I am still a beginner but I have a good foundation in JS / TS / Node / React and PHP / Symfony / API Platform.
+If you are interested to working with me on open source projects, I'm up for it! I am still a beginner but I have a good foundation in JS / TS / Node / React and PHP / Symfony / API Platform.
 
 See You!
 D.Bouscarle
