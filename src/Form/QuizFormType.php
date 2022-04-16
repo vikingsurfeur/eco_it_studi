@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class QuizFormType extends AbstractType
 {
@@ -22,13 +23,10 @@ class QuizFormType extends AbstractType
                     'class' => QuizAnswerChoice::class,
                     'multiple' => true,
                     'expanded' => true,
-                    'attr' => [
-                        'required' => true,
-                    ],
                     'query_builder' => function (EntityRepository $er) use ($quizQuestion) {
                         return $er->createQueryBuilder('q')
-                            ->where('q.quizQuestions = :quizQuestion')
-                            ->setParameter('quizQuestion', $quizQuestion);
+                        ->where('q.quizQuestions = :quizQuestion')
+                        ->setParameter('quizQuestion', $quizQuestion);
                     },
                     'choice_label' => function (QuizAnswerChoice $quizAnswerChoice) {
                         return $quizAnswerChoice->getChoiceDescription();

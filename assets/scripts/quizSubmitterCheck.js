@@ -22,8 +22,16 @@ const messageContainerTemplate = (status, message, percentage) => {
             <strong>${message}</strong>
             <span>Avec ${parseFloat(percentage).toFixed(2)}% de réussite</span>
         `;
-    } else {
+    } else if (status === "error") {
         messageContainer.classList.add("alert", "alert-danger", "mt-4");
+        messageContainer.attributes = {
+            role: "alert"
+        };
+        messageContainer.innerHTML = `
+            <strong>${message}</strong>
+        `;
+    } else {
+        messageContainer.classList.add("alert", "alert-warning", "mt-4");
         messageContainer.attributes = {
             role: "alert"
         };
@@ -60,6 +68,7 @@ const fetchQuizResult = async (quizId, fetchingURL) => {
         body: JSON.stringify({
             falseAnswer,
             correctAnswer,
+            quizId
         }),
     };
 
@@ -81,7 +90,7 @@ const fetchQuizResult = async (quizId, fetchingURL) => {
             quizCorrectingButton.classList.remove("d-none");
         }
     } catch (error) {
-        messageContainerTemplate(quizId, "error", "Une erreur est survenue");
+        messageContainerTemplate("error", "Une erreur est survenue", 0);
         console.error(error);
     }
 }

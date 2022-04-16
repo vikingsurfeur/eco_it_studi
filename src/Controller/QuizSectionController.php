@@ -39,13 +39,14 @@ class QuizSectionController extends BaseController
         $quiz = $quizRepository->findOneBy(['section' => $section->getId()]);
 
         // Create the form with this quiz
-        $form = $this->createForm(QuizFormType::class, null, [
+        $formQuiz = $this->createForm(QuizFormType::class, null, [
             'quiz' => $quiz,
         ]);
 
         return $this->render('quiz_section/index.html.twig', [
             'quiz' => $quiz,
-            'form_quiz' => $form->createView(),
+            'section' => $section,
+            'form_quiz' => $formQuiz->createView(),
         ]);
     }
 
@@ -62,7 +63,7 @@ class QuizSectionController extends BaseController
             // Retrieve correctAnswer from request
             $dataRequest = json_decode($request->getContent());
             
-            // Retrieve the correctAnswer key in dataRequest Object
+            // Retrieve the correctAnswer and the falseAnswer key in dataRequest Object
             $correctAnswer = $dataRequest->correctAnswer;
             $falseAnswer = $dataRequest->falseAnswer;
 
@@ -81,7 +82,10 @@ class QuizSectionController extends BaseController
             $percentage < 0 && $percentage = 0;
             
             // Check if the user have already answered this quiz
-            $userQuizResult = $userQuizResultRepository->findOneBy(['quiz' => $quizId]);
+            $userQuizResult = $userQuizResultRepository->findBy([
+                'quiz' => $quizId, 
+                'isResolvedBy' => $this->getUser()->getId()
+            ]);
 
             // Create a userQuiz object
             if ($userQuizResult === null) {
@@ -107,18 +111,18 @@ class QuizSectionController extends BaseController
 
                     return $this->json([
                         'message' => 'Vous n\'avez pas réussi le quiz !',
-                        'status' => 'error',
+                        'status' => 'failed',
                         'percentage' => $percentage,
                     ]);
                 }
 
             } else {
-                $userQuizResult->setNbGoodAnswer($correctAnswer);
-                $userQuizResult->setAnsweredAt(new \DateTime('now'));
+                $userQuizResult[0]->setNbGoodAnswer($correctAnswer);
+                $userQuizResult[0]->setAnsweredAt(new \DateTime('now'));
 
                 if ($percentage >= 50) {
-                    $userQuizResult->setIsResolved(true);
-                    $this->entityManager->persist($userQuizResult);
+                    $userQuizResult[0]->setIsResolved(true);
+                    $this->entityManager->persist($userQuizResult[0]);
                     $this->entityManager->flush();
 
                     return $this->json([
@@ -127,13 +131,13 @@ class QuizSectionController extends BaseController
                         'percentage' => $percentage,
                     ]);
                 } else {
-                    $userQuizResult->setIsResolved(false);
-                    $this->entityManager->persist($userQuizResult);
+                    $userQuizResult[0]->setIsResolved(false);
+                    $this->entityManager->persist($userQuizResult[0]);
                     $this->entityManager->flush();
 
                     return $this->json([
                         'message' => 'Vous n\'avez pas réussi le quiz !',
-                        'status' => 'error',
+                        'status' => 'failed',
                         'percentage' => $percentage,
                     ]);
                 }
