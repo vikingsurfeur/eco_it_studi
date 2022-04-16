@@ -106,7 +106,7 @@ Once the section is over, a Quiz will be unlocked if it has one.
 - Connected as an instructor, to the addition of a collection of images for lessons, if a block of adding image is carried out without filling it in, we get an error in the validation of the form.
 - No Quiz form validation yet...
 
-### Contact Me
+## Contact Me
 If you are interested in working with me on open source projects, I'm up for it! I am still a beginner but I have a good foundation in JS / TS / Node / React and PHP / Symfony / API Platform.
 
 See You!
