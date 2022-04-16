@@ -6,6 +6,16 @@
 
 <hr />
 
+## Table of Contents
+- [Project - Notion Dashboard](#notion-dashboard)
+- [Requirements](#check-requirements)
+- [Install](#install)
+- [Environment Variables](#environment-dev)
+- [Migrations - Database](#migrations-to-be-free)
+- [Login](#ready-to-fight)
+- [Using this App](#i-want-to-be-a-user)
+
+
 ## Notion Dashboard
 
 Hi there! You can find my project management on this Notion link => [My Notion Project](https://coffee-comic-8d3.notion.site/37fcafe356514e68ac0400ee902792b1?v=94015e345f4844d7bffc321ff7c0629f)
@@ -79,4 +89,9 @@ password : tada
 Move the accepted boolean field to the first instructor have you seen.
 Now you can log out and log back in with the Instructor account.  
 If you log in with the instructor account without having validated his account, you will see that the dashboard will be blocked pending validation by an admin.   
-So happy? Now that you are logged in as an instructor, you can create your courses, your sections and much more dude!    
+So happy? Now that you are logged in as an instructor, you can create your courses, your sections and much more dude!  
+  
+When you are logged in as a learner/user, you will need to register for a course before you can take it.  
+Your courses will be stored on the "Mes Cours" page.  
+Once your lessons are over, check the box and you will be able to see your progress thanks to the badges.  
+Once the section is over, a Quiz will be unlocked if it has one.  
