@@ -14,6 +14,8 @@
 - [Migrations - Database](#migrations-to-be-free)
 - [Login](#ready-to-fight)
 - [Using this App](#i-want-to-be-a-user)
+- [Known Issues](#known-issues)
+- [Contact Me](#contact-me)
 
 
 ## Notion Dashboard
@@ -98,4 +100,14 @@ So happy? Now that you are logged in as an instructor, you can create your cours
 When you are logged in as a learner/user, you will need to register for a course before you can take it.  
 Your courses will be stored on the "Mes Cours" page.  
 Once your lessons are over, check the box and you will be able to see your progress thanks to the badges.  
-Once the section is over, a Quiz will be unlocked if it has one.  
+Once the section is over, a Quiz will be unlocked if it has one.
+
+## Known Issues
+- Connected as an instructor, to the addition of a collection of images for lessons, if a block of adding image is carried out without filling it in, we get an error in the validation of the form.
+- No Quiz form validation yet...
+
+### Contact Me
+If you are interested in working with me on open source projects, I'm up for it! I am still a beginner but I have a good foundation in JS / TS / Node / React and PHP / Symfony / API Platform.
+
+See You!
+D.Bouscarle
