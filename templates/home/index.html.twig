@@ -7,11 +7,24 @@
     <section class="container homepage__container__subtitle">
         <div class="row">
             <div class="col">
-                <h2 class="text-center fw-bold">Bienvenue !</h2>
+                <h2 class="text-center fw-bold">Bienvenue sur <span class="text-primary">ECO-IT</span> !</h2>
                 <h4 class="text-center">
                     <span class="text-primary">ECO IT</span> est une plateforme d'apprentissage écologiquement
                     responsable qui vous permet de vous former en toute simplicité.
                 </h4>
+                <hr>
+                <h5 class="text-center">
+                    Depuis plus de 30 ans, les fondateurs du site ECO IT participent activement au GIEC,
+                    <br>
+                    le constat en 2022 est que la situation écologique est devenue le plus grand enjeu de
+                    l'humanité.
+                </h5>
+                <hr>
+                <h5 class="text-center">
+                    Pour contrer efficacement cette menace,
+                    <br>
+                    le site ECO IT a été créé pour vous permettre
+                    d'apprendre sereinement et de vous aider à vous développer dans une éthique et une responsabilité sans faille envers la planète.
             </div>
         </div>
     </section>
@@ -27,9 +40,52 @@
             </a>
         </h1>
     </div>
-    <!-- COURSE LIST --> -->
+    <!-- DESCRIPTION COLUMNS -->
+    <article class="container homepage__container__learner">
+        <div class="row my-5">
+            <div class="col-lg-6">
+                <img class="img-fluid rounded" src="{{ asset('build/images/eco_it_learner.jpg') }}" alt="image d'un apprenant heureux">
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <p class="homepage__container__learner__content">
+                    Vous souhaitez devnir le prochain Linus Torvalds ?
+                    <br>
+                    Vous souhaitez apprendre grâce une plateforme responsable ethique envers l'écologie ?
+                    <br>
+                    Alors <span class="text-primary">ECO IT</span> est fait pour vous !
+                    <hr>
+                </p>
+                <a href="{{ path('app_register_user') }}" class="btn btn-lg btn-primary text-white shadow-sm">
+                    Je m'instruis !
+                </a>
+            </div>
+        </div>
+    </article>
+    <article class="container homepage__container__instructor">
+        <div class="row my-5 d-flex flex-column-reverse flex-lg-row">
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <p class="homepage__container__instructor__content">
+                    Vous souhaitez proposer vos formations ?
+                    <br>
+                    L'écologie et l'état actuel de la planète vous inquiète ?
+                    <br>
+                    Alors <span class="text-primary">ECO IT</span> est fait pour vous !
+                    <br>
+                    Postuler dès maintenant pour faire partie de nos formateurs.
+                    <hr>
+                </p>
+                <a href="{{ path('app_register_instructor') }}" class="btn btn-lg btn-primary text-white shadow-sm">
+                    Je postule !
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <img class="img-fluid rounded" src="{{ asset('build/images/eco_it_instructor.jpg') }}" alt="image d'un formateur heureux">
+            </div>
+        </div>
+    </article>
+    <!-- COURSE LIST -->
     <section class="container homepage__container__course">
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-12">
                 <h2 class="text-center fw-bold">Nos derniers cours</h2>
             </div>
@@ -49,4 +105,9 @@
         </div>
     </section>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('scrollToTop') }}
 {% endblock %}

@@ -46,6 +46,9 @@ class RegistrationInstructorController extends AbstractController
                 $request,
             );
 
+            // Display a message to say the user was created
+            $this->addFlash('success', 'Votre compte a bien été créé.');
+
             return $this->redirectToRoute('app_instructor');
         }
 

@@ -3,6 +3,8 @@
 // Mixins
 @import "../styles/mixins/media_queries_helper";
 
+// Animations
+@import "../styles/animations/scroll_button";
 // Themes
 @import "../styles/theme/colors",
         "../styles/theme/forms",
@@ -21,7 +23,8 @@
 
 // Component
 @import "../styles/components/course_card",
-        "../styles/components/nav";
+        "../styles/components/nav",
+        "../styles/components/scroll_button";
 
 // Import Boostrap Styles
 @import "~bootstrap/scss/bootstrap";

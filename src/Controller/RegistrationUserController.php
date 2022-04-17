@@ -16,7 +16,13 @@ use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 class RegistrationUserController extends AbstractController
 {
     #[Route('/register-learner', name: 'app_register_user')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager, FormLoginAuthenticator $formLoginAuthenticator): Response
+    public function register(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher, 
+        UserAuthenticatorInterface $userAuthenticator, 
+        EntityManagerInterface $entityManager, 
+        FormLoginAuthenticator $formLoginAuthenticator
+        ): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationUserFormType::class, $user);
@@ -39,6 +45,9 @@ class RegistrationUserController extends AbstractController
                 $formLoginAuthenticator,
                 $request,
             );
+
+            // Display a message to say the user was created
+            $this->addFlash('success', 'Votre compte a bien été créé.');
 
             return $this->redirectToRoute('app_user');
         }

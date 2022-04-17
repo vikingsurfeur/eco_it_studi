@@ -8,7 +8,7 @@
 
     &__headerhero {
         position: relative;
-        min-height: 20vh;
+        min-height: 600px;
         background-image: url('/assets/images/eco_it_headerhero.jpg');
         background-size: cover;
         background-position: center;
@@ -59,6 +59,22 @@
             &__link {
                 margin-top: 3rem;
             }
+        }
+    }
+
+    &__learner {
+        margin-top: 100px;
+    }
+
+    &__instructor {
+        margin-bottom: 100px;
+    }
+
+    &__learner,
+    &__instructor {
+
+        &__content {
+            font-size: 1.25rem;
         }
     }
 }
