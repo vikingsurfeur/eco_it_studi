@@ -11,11 +11,11 @@
 				{{ form_row(registrationFormUser.email, {
 					'attr': {
 						'placeholder': 'user@example.com',
-					}})}}
+					}
+				})}}
 				{{ form_row(registrationFormUser.pseudo) }}
-				{{ form_row(registrationFormUser.plainPassword, {
-                        label: 'Mot de passe'
-                    }) }}
+				{{ form_row(registrationFormUser.plainPassword.first) }}
+				{{ form_row(registrationFormUser.plainPassword.second) }}
 				{{ form_row(registrationFormUser.agreeTerms) }}
 				<button type="submit" class="btn btn-lg btn-primary text-white float-end">Inscription</button>
 				{{ form_end(registrationFormUser) }}
