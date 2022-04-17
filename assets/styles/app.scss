@@ -4,7 +4,8 @@
 @import "../styles/mixins/media_queries_helper";
 
 // Animations
-@import "../styles/animations/scroll_button";
+@import "../styles/animations/prevent_animations",
+        "../styles/animations/scroll_button";
 // Themes
 @import "../styles/theme/colors",
         "../styles/theme/forms",

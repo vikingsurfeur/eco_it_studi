@@ -12,11 +12,13 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('transitionPrevent') }}
         {% endblock %}
     </head>
-    <body class="body">
+    <body class="body preload" id="body">
         {% include 'fragments/header.html.twig' %}
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
         {% include 'fragments/footer.html.twig' %}
         {% include 'components/scroll.button.toTop.html.twig' %}
     </body>

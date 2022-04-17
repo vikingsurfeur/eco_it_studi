@@ -10,16 +10,3 @@ $btnScrollVisible: btnScrollVisible 500ms ease forwards;
         visibility: visible;
     }
 }
-
-$btnScrollHidde: btnScrollHidde 500ms ease forwards;
-
-@keyframes btnScrollHidde {
-    0% {
-        opacity: 0.6;
-        visibility: visible;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
-    }
-}

@@ -1,12 +1,11 @@
 const btnScrollToTop = document.getElementById("btnScrollToTop");
 
+// If the first time of scrolling, the button will be hidden
 window.addEventListener("scroll", () => {
     if (window.scrollY > 800) {
         btnScrollToTop.classList.add("btnScrollVisible");
-        btnScrollToTop.classList.remove("btnScrollHidde");
     } else {
         btnScrollToTop.classList.remove("btnScrollVisible");
-        btnScrollToTop.classList.add("btnScrollHidde");
     }
 });
 

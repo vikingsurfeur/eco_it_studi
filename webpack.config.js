@@ -26,6 +26,7 @@ Encore
     .addEntry('lessonFinisherCheck', './assets/scripts/lessonFinisherCheck.js')
     .addEntry('quizSubmitterCheck', './assets/scripts/quizSubmitterCheck.js')
     .addEntry('scrollToTop', './assets/scripts/scrollToTop.button.js')
+    .addEntry('transitionPrevent', './assets/scripts/transitionPrevent.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

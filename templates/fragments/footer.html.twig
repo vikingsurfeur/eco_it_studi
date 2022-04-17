@@ -1,4 +1,10 @@
-<footer class="container mt-5 mb-3">
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+{% if currentPath in ["/register-learner", "/register-instructor"] %}
+<footer class="container fixed-bottom mt-5 mb-3 footer__container">
+{% else %}
+<footer class="container mt-5 mb-3 footer__container">
+{% endif %}
 	<div class="row d-flex flex-column-reverse flex-lg-row align-items-center">
 		<div class="col-lg-6 text-center text-lg-start">
 			<p class="m-0 h5">© 2022 ECO-IT by D.BOUSCARLE</p>
