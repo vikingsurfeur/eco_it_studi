@@ -88,7 +88,7 @@ class QuizSectionController extends BaseController
             ]);
 
             // Create a userQuiz object
-            if ($userQuizResult === null) {
+            if (empty($userQuizResult)) {
                 $newUserQuizResult = new UserQuizResult();
                 $newUserQuizResult = new UserQuizResult();
                 $newUserQuizResult->setQuiz($quiz);
