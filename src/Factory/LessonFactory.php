@@ -40,11 +40,10 @@ final class LessonFactory extends ModelFactory
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'title' => self::faker()->word(),
-            'video' => 'https://www.youtube.com/watch?v=TNhaISOUy6Q&ab_channel=Fireship',
+            'video' => 'https://www.youtube.com/embed/Tn6-PIqc4UM',
             'explanation' => self::faker()->text(),
             'createdAt' => new \DateTime('now'),
             'slug' => self::faker()->word(),
-            //'isFinished' => false,
         ];
     }
 

@@ -42,7 +42,6 @@ final class SectionFactory extends ModelFactory
             'title' => self::faker()->word(),
             'slug' => self::faker()->word(),
             'createdAt' => new \DateTime('now'),
-//            'isFinished' => false,
         ];
     }
 
