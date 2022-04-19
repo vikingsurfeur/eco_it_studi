@@ -43,7 +43,7 @@ final class CourseFactory extends ModelFactory
             'slug' => self::faker()->word(),
             'description' => self::faker()->text(),
             'createdAt' => new \DateTime('now'),
-            'isFinished' => false,
+            //'isFinished' => false,
             'image' => ImageFactory::new(),
         ];
     }

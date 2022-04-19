@@ -44,7 +44,7 @@ final class LessonFactory extends ModelFactory
             'explanation' => self::faker()->text(),
             'createdAt' => new \DateTime('now'),
             'slug' => self::faker()->word(),
-            'isFinished' => false,
+            //'isFinished' => false,
         ];
     }
 
