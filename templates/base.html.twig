@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        <script src="https://kit.fontawesome.com/13583366cc.js" crossorigin="anonymous"></script>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<!-- TITLE -->
+		<title>Title</title>
+		<!-- SEO -->
+		<meta name="description" content="ECO IT, découvrez les cours d'une école elearning éco-responsable"/>
+		<!-- SOCIAL NETWORK TITLE -->
+		<meta property="og:title" content="ECO IT | ELEARNING ECO RESPONSABLE"/>
+		<!-- SOCIAL NETWORK PICTURE -->
+		<meta property="og:image" content="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"/>
+		<!-- CARD TWITTER / GO TO https://webcode.tools/twitter-card-generator/ -->
+		<meta name="twitter:card" content="summary"/>
+		<meta name="twitter:title" content="ECO IT | ELEARNING ECO RESPONSABLE"/>
+		<meta name="twitter:image" content="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"/>
+		<meta name="twitter:description" content="ECO IT, découvrez les cours d'une école elearning éco-responsable"/>
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		<script src="https://kit.fontawesome.com/13583366cc.js" crossorigin="anonymous"></script>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {{ encore_entry_script_tags('transitionPrevent') }}
-        {% endblock %}
-    </head>
-    <body class="body preload" id="body">
-        {% include 'fragments/header.html.twig' %}
-        {% block body %}
-        {% endblock %}
-        {% include 'fragments/footer.html.twig' %}
-        {% include 'components/scroll.button.toTop.html.twig' %}
-    </body>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			{{ encore_entry_script_tags('transitionPrevent') }}
+		{% endblock %}
+	</head>
+	<body class="body preload" id="body">
+		{% include 'fragments/header.html.twig' %}
+		{% block body %}{% endblock %}
+		{% include 'fragments/footer.html.twig' %}
+		{% include 'components/scroll.button.toTop.html.twig' %}
+	</body>
 </html>
+
