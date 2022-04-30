@@ -16,7 +16,13 @@ use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 class RegistrationInstructorController extends AbstractController
 {
     #[Route('/register-instructor', name: 'app_register_instructor')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, FormLoginAuthenticator $formLoginAuthenticator): Response
+    public function register(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher, 
+        EntityManagerInterface $entityManager, 
+        UserAuthenticatorInterface $userAuthenticator, 
+        FormLoginAuthenticator $formLoginAuthenticator
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationInstructorFormType::class, $user);
