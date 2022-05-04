@@ -104,6 +104,7 @@ Once the section is over, a Quiz will be unlocked if it has one.
 
 ## Known Issues
 - Connected as an instructor, to the addition of a collection of images for lessons, if a block of adding image is carried out without filling it in, we get an error in the validation of the form.
+- Connected with a new profile, You must upload a profile photo on profile modification, File non nullable...
 - No Quiz form validation yet...
 
 ## Contact Me
